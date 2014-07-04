@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Wachbuch eintrag:</strong>
+  <%= @kontrollanruf.wachbuch_eintrag %>
+</p>
+
+<p>
+  <strong>Uhrzeit:</strong>
+  <%= @kontrollanruf.uhrzeit %>
+</p>
+
+<p>
+  <strong>Objekt:</strong>
+  <%= @kontrollanruf.objekt %>
+</p>
+
+<p>
+  <strong>Bemerkung:</strong>
+  <%= @kontrollanruf.bemerkung %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @kontrollanruf.position %>
+</p>
+
+<%= link_to 'Edit', edit_kontrollanruf_path(@kontrollanruf) %> |
+<%= link_to 'Back', kontrollanrufs_path %>

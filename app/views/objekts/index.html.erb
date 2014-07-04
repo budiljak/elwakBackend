@@ -1,0 +1,29 @@
+<h1>Listing objekts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bezeichner</th>
+      <th>Inaktiv</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @objekts.each do |objekt| %>
+      <tr>
+        <td><%= objekt.bezeichner %></td>
+        <td><%= objekt.inaktiv %></td>
+        <td><%= link_to 'Show', objekt %></td>
+        <td><%= link_to 'Edit', edit_objekt_path(objekt) %></td>
+        <td><%= link_to 'Destroy', objekt, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Objekt', new_objekt_path %>

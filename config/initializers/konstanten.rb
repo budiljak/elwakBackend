@@ -1,0 +1,4 @@
+# Benutzer-Typen
+VERWALTER = 1
+MITARBEITER = 2
+KUNDE = 3

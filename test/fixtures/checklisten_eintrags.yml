@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  checklisten_vorlage_id: 
+  bezeichner: MyString
+  was: MyText
+  wann: MyText
+  typ: 1
+  position: 1
+
+two:
+  checklisten_vorlage_id: 
+  bezeichner: MyString
+  was: MyText
+  wann: MyText
+  typ: 1
+  position: 1

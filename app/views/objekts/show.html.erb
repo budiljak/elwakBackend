@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Bezeichner:</strong>
+  <%= @objekt.bezeichner %>
+</p>
+
+<p>
+  <strong>Inaktiv:</strong>
+  <%= @objekt.inaktiv %>
+</p>
+
+<%= link_to 'Edit', edit_objekt_path(@objekt) %> |
+<%= link_to 'Back', objekts_path %>

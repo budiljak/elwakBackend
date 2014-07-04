@@ -1,0 +1,25 @@
+<%= form_for(@objekt) do |f| %>
+  <% if @objekt.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@objekt.errors.count, "error") %> prohibited this objekt from being saved:</h2>
+
+      <ul>
+      <% @objekt.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :bezeichner %><br>
+    <%= f.text_field :bezeichner %>
+  </div>
+  <div class="field">
+    <%= f.label :inaktiv %><br>
+    <%= f.check_box :inaktiv %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

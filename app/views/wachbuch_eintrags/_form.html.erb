@@ -1,0 +1,45 @@
+<%= form_for(@wachbuch_eintrag) do |f| %>
+  <% if @wachbuch_eintrag.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@wachbuch_eintrag.errors.count, "error") %> prohibited this wachbuch_eintrag from being saved:</h2>
+
+      <ul>
+      <% @wachbuch_eintrag.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :schicht_id %><br>
+    <%= f.text_field :schicht_id %>
+  </div>
+  <div class="field">
+    <%= f.label :besonderheiten %><br>
+    <%= f.text_area :besonderheiten %>
+  </div>
+  <div class="field">
+    <%= f.label :schaeden %><br>
+    <%= f.text_area :schaeden %>
+  </div>
+  <div class="field">
+    <%= f.label :ausruestung_vollzaehlig %><br>
+    <%= f.check_box :ausruestung_vollzaehlig %>
+  </div>
+  <div class="field">
+    <%= f.label :ausruestung_funktion %><br>
+    <%= f.check_box :ausruestung_funktion %>
+  </div>
+  <div class="field">
+    <%= f.label :schluessel_vollzaehlig %><br>
+    <%= f.check_box :schluessel_vollzaehlig %>
+  </div>
+  <div class="field">
+    <%= f.label :schluessel_bemerkung %><br>
+    <%= f.text_field :schluessel_bemerkung %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,35 @@
+<h1>Listing schichts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Objekt</th>
+      <th>Benutzer</th>
+      <th>Datum</th>
+      <th>Uhrzeit beginn</th>
+      <th>Uhrzeit ende</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @schichts.each do |schicht| %>
+      <tr>
+        <td><%= schicht.objekt %></td>
+        <td><%= schicht.benutzer %></td>
+        <td><%= schicht.datum %></td>
+        <td><%= schicht.uhrzeit_beginn %></td>
+        <td><%= schicht.uhrzeit_ende %></td>
+        <td><%= link_to 'Show', schicht %></td>
+        <td><%= link_to 'Edit', edit_schicht_path(schicht) %></td>
+        <td><%= link_to 'Destroy', schicht, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Schicht', new_schicht_path %>

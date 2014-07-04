@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  objekt_id: 
+  bezeichner: MyString
+  version: 1
+  inaktiv: false
+  position: 1
+
+two:
+  objekt_id: 
+  bezeichner: MyString
+  version: 1
+  inaktiv: false
+  position: 1

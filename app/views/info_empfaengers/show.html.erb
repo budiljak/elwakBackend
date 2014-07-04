@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Info:</strong>
+  <%= @info_empfaenger.info %>
+</p>
+
+<p>
+  <strong>Benutzer:</strong>
+  <%= @info_empfaenger.benutzer %>
+</p>
+
+<p>
+  <strong>Gelesen:</strong>
+  <%= @info_empfaenger.gelesen %>
+</p>
+
+<%= link_to 'Edit', edit_info_empfaenger_path(@info_empfaenger) %> |
+<%= link_to 'Back', info_empfaengers_path %>

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Schicht:</strong>
+  <%= @rapport.schicht %>
+</p>
+
+<p>
+  <strong>Beschreibung:</strong>
+  <%= @rapport.beschreibung %>
+</p>
+
+<p>
+  <strong>Ort:</strong>
+  <%= @rapport.ort %>
+</p>
+
+<p>
+  <strong>Uhrzeit:</strong>
+  <%= @rapport.uhrzeit %>
+</p>
+
+<p>
+  <strong>Massnahmen:</strong>
+  <%= @rapport.massnahmen %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @rapport.position %>
+</p>
+
+<%= link_to 'Edit', edit_rapport_path(@rapport) %> |
+<%= link_to 'Back', rapports_path %>

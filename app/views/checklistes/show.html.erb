@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Checklisten vorlage:</strong>
+  <%= @checkliste.checklisten_vorlage %>
+</p>
+
+<p>
+  <strong>Schicht:</strong>
+  <%= @checkliste.schicht %>
+</p>
+
+<p>
+  <strong>Uhrzeit:</strong>
+  <%= @checkliste.uhrzeit %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @checkliste.position %>
+</p>
+
+<%= link_to 'Edit', edit_checkliste_path(@checkliste) %> |
+<%= link_to 'Back', checklistes_path %>

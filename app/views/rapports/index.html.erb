@@ -1,0 +1,37 @@
+<h1>Listing rapports</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Schicht</th>
+      <th>Beschreibung</th>
+      <th>Ort</th>
+      <th>Uhrzeit</th>
+      <th>Massnahmen</th>
+      <th>Position</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rapports.each do |rapport| %>
+      <tr>
+        <td><%= rapport.schicht %></td>
+        <td><%= rapport.beschreibung %></td>
+        <td><%= rapport.ort %></td>
+        <td><%= rapport.uhrzeit %></td>
+        <td><%= rapport.massnahmen %></td>
+        <td><%= rapport.position %></td>
+        <td><%= link_to 'Show', rapport %></td>
+        <td><%= link_to 'Edit', edit_rapport_path(rapport) %></td>
+        <td><%= link_to 'Destroy', rapport, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Rapport', new_rapport_path %>

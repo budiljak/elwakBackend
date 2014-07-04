@@ -1,0 +1,35 @@
+<h1>Listing checklisten_vorlages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Objekt</th>
+      <th>Bezeichner</th>
+      <th>Version</th>
+      <th>Inaktiv</th>
+      <th>Position</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @checklisten_vorlages.each do |checklisten_vorlage| %>
+      <tr>
+        <td><%= checklisten_vorlage.objekt %></td>
+        <td><%= checklisten_vorlage.bezeichner %></td>
+        <td><%= checklisten_vorlage.version %></td>
+        <td><%= checklisten_vorlage.inaktiv %></td>
+        <td><%= checklisten_vorlage.position %></td>
+        <td><%= link_to 'Show', checklisten_vorlage %></td>
+        <td><%= link_to 'Edit', edit_checklisten_vorlage_path(checklisten_vorlage) %></td>
+        <td><%= link_to 'Destroy', checklisten_vorlage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Checklisten vorlage', new_checklisten_vorlage_path %>

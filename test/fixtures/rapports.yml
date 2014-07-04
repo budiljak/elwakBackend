@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  schicht_id: 
+  beschreibung: MyText
+  ort: MyText
+  uhrzeit: 2014-06-25 16:59:28
+  massnahmen: MyText
+  position: 1
+
+two:
+  schicht_id: 
+  beschreibung: MyText
+  ort: MyText
+  uhrzeit: 2014-06-25 16:59:28
+  massnahmen: MyText
+  position: 1

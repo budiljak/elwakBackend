@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Schicht:</strong>
+  <%= @wachbuch_eintrag.schicht %>
+</p>
+
+<p>
+  <strong>Besonderheiten:</strong>
+  <%= @wachbuch_eintrag.besonderheiten %>
+</p>
+
+<p>
+  <strong>Schaeden:</strong>
+  <%= @wachbuch_eintrag.schaeden %>
+</p>
+
+<p>
+  <strong>Ausruestung vollzaehlig:</strong>
+  <%= @wachbuch_eintrag.ausruestung_vollzaehlig %>
+</p>
+
+<p>
+  <strong>Ausruestung funktion:</strong>
+  <%= @wachbuch_eintrag.ausruestung_funktion %>
+</p>
+
+<p>
+  <strong>Schluessel vollzaehlig:</strong>
+  <%= @wachbuch_eintrag.schluessel_vollzaehlig %>
+</p>
+
+<p>
+  <strong>Schluessel bemerkung:</strong>
+  <%= @wachbuch_eintrag.schluessel_bemerkung %>
+</p>
+
+<%= link_to 'Edit', edit_wachbuch_eintrag_path(@wachbuch_eintrag) %> |
+<%= link_to 'Back', wachbuch_eintrags_path %>

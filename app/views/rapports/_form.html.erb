@@ -1,0 +1,41 @@
+<%= form_for(@rapport) do |f| %>
+  <% if @rapport.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rapport.errors.count, "error") %> prohibited this rapport from being saved:</h2>
+
+      <ul>
+      <% @rapport.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :schicht_id %><br>
+    <%= f.text_field :schicht_id %>
+  </div>
+  <div class="field">
+    <%= f.label :beschreibung %><br>
+    <%= f.text_area :beschreibung %>
+  </div>
+  <div class="field">
+    <%= f.label :ort %><br>
+    <%= f.text_area :ort %>
+  </div>
+  <div class="field">
+    <%= f.label :uhrzeit %><br>
+    <%= f.datetime_select :uhrzeit %>
+  </div>
+  <div class="field">
+    <%= f.label :massnahmen %><br>
+    <%= f.text_area :massnahmen %>
+  </div>
+  <div class="field">
+    <%= f.label :position %><br>
+    <%= f.number_field :position %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

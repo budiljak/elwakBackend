@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  objekt_id: 
+  benutzer_id: 
+  datum: 2014-06-25 16:57:51
+  uhrzeit_beginn: 2014-06-25 16:57:51
+  uhrzeit_ende: 2014-06-25 16:57:51
+
+two:
+  objekt_id: 
+  benutzer_id: 
+  datum: 2014-06-25 16:57:51
+  uhrzeit_beginn: 2014-06-25 16:57:51
+  uhrzeit_ende: 2014-06-25 16:57:51

@@ -1,0 +1,37 @@
+<%= form_for(@schicht) do |f| %>
+  <% if @schicht.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@schicht.errors.count, "error") %> prohibited this schicht from being saved:</h2>
+
+      <ul>
+      <% @schicht.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :objekt_id %><br>
+    <%= f.text_field :objekt_id %>
+  </div>
+  <div class="field">
+    <%= f.label :benutzer_id %><br>
+    <%= f.text_field :benutzer_id %>
+  </div>
+  <div class="field">
+    <%= f.label :datum %><br>
+    <%= f.datetime_select :datum %>
+  </div>
+  <div class="field">
+    <%= f.label :uhrzeit_beginn %><br>
+    <%= f.datetime_select :uhrzeit_beginn %>
+  </div>
+  <div class="field">
+    <%= f.label :uhrzeit_ende %><br>
+    <%= f.datetime_select :uhrzeit_ende %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

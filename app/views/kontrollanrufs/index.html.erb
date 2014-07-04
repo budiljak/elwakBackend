@@ -1,0 +1,35 @@
+<h1>Listing kontrollanrufs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Wachbuch eintrag</th>
+      <th>Uhrzeit</th>
+      <th>Objekt</th>
+      <th>Bemerkung</th>
+      <th>Position</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @kontrollanrufs.each do |kontrollanruf| %>
+      <tr>
+        <td><%= kontrollanruf.wachbuch_eintrag %></td>
+        <td><%= kontrollanruf.uhrzeit %></td>
+        <td><%= kontrollanruf.objekt %></td>
+        <td><%= kontrollanruf.bemerkung %></td>
+        <td><%= kontrollanruf.position %></td>
+        <td><%= link_to 'Show', kontrollanruf %></td>
+        <td><%= link_to 'Edit', edit_kontrollanruf_path(kontrollanruf) %></td>
+        <td><%= link_to 'Destroy', kontrollanruf, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Kontrollanruf', new_kontrollanruf_path %>

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Benutzer:</strong>
+  <%= @info.benutzer %>
+</p>
+
+<p>
+  <strong>Art:</strong>
+  <%= @info.art %>
+</p>
+
+<p>
+  <strong>Datum:</strong>
+  <%= @info.datum %>
+</p>
+
+<p>
+  <strong>Betreff:</strong>
+  <%= @info.betreff %>
+</p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @info.text %>
+</p>
+
+<p>
+  <strong>Datei:</strong>
+  <%= @info.datei %>
+</p>
+
+<%= link_to 'Edit', edit_info_path(@info) %> |
+<%= link_to 'Back', infos_path %>

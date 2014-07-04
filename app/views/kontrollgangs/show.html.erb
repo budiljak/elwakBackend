@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Wachbuch eintrag:</strong>
+  <%= @kontrollgang.wachbuch_eintrag %>
+</p>
+
+<p>
+  <strong>Uhrzeit:</strong>
+  <%= @kontrollgang.uhrzeit %>
+</p>
+
+<p>
+  <strong>Bemerkung:</strong>
+  <%= @kontrollgang.bemerkung %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @kontrollgang.position %>
+</p>
+
+<%= link_to 'Edit', edit_kontrollgang_path(@kontrollgang) %> |
+<%= link_to 'Back', kontrollgangs_path %>

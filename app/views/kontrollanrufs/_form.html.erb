@@ -1,0 +1,37 @@
+<%= form_for(@kontrollanruf) do |f| %>
+  <% if @kontrollanruf.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@kontrollanruf.errors.count, "error") %> prohibited this kontrollanruf from being saved:</h2>
+
+      <ul>
+      <% @kontrollanruf.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :wachbuch_eintrag_id %><br>
+    <%= f.text_field :wachbuch_eintrag_id %>
+  </div>
+  <div class="field">
+    <%= f.label :uhrzeit %><br>
+    <%= f.datetime_select :uhrzeit %>
+  </div>
+  <div class="field">
+    <%= f.label :objekt %><br>
+    <%= f.text_field :objekt %>
+  </div>
+  <div class="field">
+    <%= f.label :bemerkung %><br>
+    <%= f.text_area :bemerkung %>
+  </div>
+  <div class="field">
+    <%= f.label :position %><br>
+    <%= f.number_field :position %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

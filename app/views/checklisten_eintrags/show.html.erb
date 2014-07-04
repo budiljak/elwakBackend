@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Checklisten vorlage:</strong>
+  <%= @checklisten_eintrag.checklisten_vorlage %>
+</p>
+
+<p>
+  <strong>Bezeichner:</strong>
+  <%= @checklisten_eintrag.bezeichner %>
+</p>
+
+<p>
+  <strong>Was:</strong>
+  <%= @checklisten_eintrag.was %>
+</p>
+
+<p>
+  <strong>Wann:</strong>
+  <%= @checklisten_eintrag.wann %>
+</p>
+
+<p>
+  <strong>Typ:</strong>
+  <%= @checklisten_eintrag.typ %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @checklisten_eintrag.position %>
+</p>
+
+<%= link_to 'Edit', edit_checklisten_eintrag_path(@checklisten_eintrag) %> |
+<%= link_to 'Back', checklisten_eintrags_path %>

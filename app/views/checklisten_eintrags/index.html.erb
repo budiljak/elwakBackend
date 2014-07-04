@@ -1,0 +1,37 @@
+<h1>Listing checklisten_eintrags</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Checklisten vorlage</th>
+      <th>Bezeichner</th>
+      <th>Was</th>
+      <th>Wann</th>
+      <th>Typ</th>
+      <th>Position</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @checklisten_eintrags.each do |checklisten_eintrag| %>
+      <tr>
+        <td><%= checklisten_eintrag.checklisten_vorlage %></td>
+        <td><%= checklisten_eintrag.bezeichner %></td>
+        <td><%= checklisten_eintrag.was %></td>
+        <td><%= checklisten_eintrag.wann %></td>
+        <td><%= checklisten_eintrag.typ %></td>
+        <td><%= checklisten_eintrag.position %></td>
+        <td><%= link_to 'Show', checklisten_eintrag %></td>
+        <td><%= link_to 'Edit', edit_checklisten_eintrag_path(checklisten_eintrag) %></td>
+        <td><%= link_to 'Destroy', checklisten_eintrag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Checklisten eintrag', new_checklisten_eintrag_path %>

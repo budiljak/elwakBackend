@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  wachbuch_eintrag_id: 
+  uhrzeit: 2014-06-25 17:03:40
+  bemerkung: MyText
+  position: 1
+
+two:
+  wachbuch_eintrag_id: 
+  uhrzeit: 2014-06-25 17:03:40
+  bemerkung: MyText
+  position: 1

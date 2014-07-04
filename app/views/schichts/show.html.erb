@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Objekt:</strong>
+  <%= @schicht.objekt %>
+</p>
+
+<p>
+  <strong>Benutzer:</strong>
+  <%= @schicht.benutzer %>
+</p>
+
+<p>
+  <strong>Datum:</strong>
+  <%= @schicht.datum %>
+</p>
+
+<p>
+  <strong>Uhrzeit beginn:</strong>
+  <%= @schicht.uhrzeit_beginn %>
+</p>
+
+<p>
+  <strong>Uhrzeit ende:</strong>
+  <%= @schicht.uhrzeit_ende %>
+</p>
+
+<%= link_to 'Edit', edit_schicht_path(@schicht) %> |
+<%= link_to 'Back', schichts_path %>

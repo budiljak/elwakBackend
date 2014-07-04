@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  objekt_id: 
+  typ: 1
+  datei: MyString
+
+two:
+  objekt_id: 
+  typ: 1
+  datei: MyString

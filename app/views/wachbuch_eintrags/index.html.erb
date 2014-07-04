@@ -1,0 +1,39 @@
+<h1>Listing wachbuch_eintrags</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Schicht</th>
+      <th>Besonderheiten</th>
+      <th>Schaeden</th>
+      <th>Ausruestung vollzaehlig</th>
+      <th>Ausruestung funktion</th>
+      <th>Schluessel vollzaehlig</th>
+      <th>Schluessel bemerkung</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wachbuch_eintrags.each do |wachbuch_eintrag| %>
+      <tr>
+        <td><%= wachbuch_eintrag.schicht %></td>
+        <td><%= wachbuch_eintrag.besonderheiten %></td>
+        <td><%= wachbuch_eintrag.schaeden %></td>
+        <td><%= wachbuch_eintrag.ausruestung_vollzaehlig %></td>
+        <td><%= wachbuch_eintrag.ausruestung_funktion %></td>
+        <td><%= wachbuch_eintrag.schluessel_vollzaehlig %></td>
+        <td><%= wachbuch_eintrag.schluessel_bemerkung %></td>
+        <td><%= link_to 'Show', wachbuch_eintrag %></td>
+        <td><%= link_to 'Edit', edit_wachbuch_eintrag_path(wachbuch_eintrag) %></td>
+        <td><%= link_to 'Destroy', wachbuch_eintrag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Wachbuch eintrag', new_wachbuch_eintrag_path %>

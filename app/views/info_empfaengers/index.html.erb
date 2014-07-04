@@ -1,0 +1,31 @@
+<h1>Listing info_empfaengers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Info</th>
+      <th>Benutzer</th>
+      <th>Gelesen</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @info_empfaengers.each do |info_empfaenger| %>
+      <tr>
+        <td><%= info_empfaenger.info %></td>
+        <td><%= info_empfaenger.benutzer %></td>
+        <td><%= info_empfaenger.gelesen %></td>
+        <td><%= link_to 'Show', info_empfaenger %></td>
+        <td><%= link_to 'Edit', edit_info_empfaenger_path(info_empfaenger) %></td>
+        <td><%= link_to 'Destroy', info_empfaenger, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Info empfaenger', new_info_empfaenger_path %>

@@ -1,0 +1,33 @@
+<h1>Listing kontrollgangs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Wachbuch eintrag</th>
+      <th>Uhrzeit</th>
+      <th>Bemerkung</th>
+      <th>Position</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @kontrollgangs.each do |kontrollgang| %>
+      <tr>
+        <td><%= kontrollgang.wachbuch_eintrag %></td>
+        <td><%= kontrollgang.uhrzeit %></td>
+        <td><%= kontrollgang.bemerkung %></td>
+        <td><%= kontrollgang.position %></td>
+        <td><%= link_to 'Show', kontrollgang %></td>
+        <td><%= link_to 'Edit', edit_kontrollgang_path(kontrollgang) %></td>
+        <td><%= link_to 'Destroy', kontrollgang, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Kontrollgang', new_kontrollgang_path %>

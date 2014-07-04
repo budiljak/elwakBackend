@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  schicht_id: 
+  besonderheiten: MyText
+  schaeden: MyText
+  ausruestung_vollzaehlig: false
+  ausruestung_funktion: false
+  schluessel_vollzaehlig: false
+  schluessel_bemerkung: MyString
+
+two:
+  schicht_id: 
+  besonderheiten: MyText
+  schaeden: MyText
+  ausruestung_vollzaehlig: false
+  ausruestung_funktion: false
+  schluessel_vollzaehlig: false
+  schluessel_bemerkung: MyString

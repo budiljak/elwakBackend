@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  checklisten_vorlage_id: 
+  schicht_id: 
+  uhrzeit: 2014-06-25 17:09:21
+  position: 1
+
+two:
+  checklisten_vorlage_id: 
+  schicht_id: 
+  uhrzeit: 2014-06-25 17:09:21
+  position: 1
