@@ -97,15 +97,17 @@ class SchichtsController < ApplicationController
       wb = WachbuchEintrag.new({
         besonderheiten: wbNode.xpath('besonderheiten').text.to_s, 
         schaeden: wbNode.xpath('schaeden').text.to_s, 
-        ausruestung_vollzaehlig: wbNode.xpath('ausruestung_vollzaehlig').text.to_s, 
-        ausruestung_funktion: wbNode.xpath('ausruestung_funktion').text.to_s, 
-        schluessel_vollzaehlig: wbNode.xpath('schluessel_vollzaehlig').text.to_s, 
+        ausruestung_vollzaehlig: wbNode.xpath('ausruestung_vollzaehlig').text.to_bool, 
+        ausruestung_funktion: wbNode.xpath('ausruestung_funktion').text.to_bool, 
+        schluessel_vollzaehlig: wbNode.xpath('schluessel_vollzaehlig').text.to_bool, 
         schluessel_bemerkung: wbNode.xpath('schluessel_bemerkung').text.to_s, 
         schicht: s
       })
       puts "wb.ausruestung_vollzaehlig: " + wb.ausruestung_vollzaehlig.to_s
+      puts "wb.ausruestung_funktion: " + wb.ausruestung_funktion.to_s
+      puts "wb.schluessel_vollzaehlig: " + wb.schluessel_vollzaehlig.to_s
       wb.save
-      wbNode.xpath('kontrollanrufs').each do |kaNode|
+      wbNode.xpath('kontrollanrufs/kontrollanruf').each do |kaNode|
         ka = Kontrollanruf.new({
           wachbuch_eintrag: wb,
           uhrzeit: kaNode.xpath('uhrzeit').text.to_s,
@@ -115,7 +117,7 @@ class SchichtsController < ApplicationController
         })
         ka.save
       end
-      wbNode.xpath('kontrollgangs').each do |kgNode|
+      wbNode.xpath('kontrollgangs/kontrollgang').each do |kgNode|
         kg = Kontrollgang.new({
           wachbuch_eintrag: wb,
           uhrzeit: kgNode.xpath('uhrzeit').text.to_s,

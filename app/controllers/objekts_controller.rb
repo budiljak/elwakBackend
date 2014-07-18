@@ -1,6 +1,4 @@
 class ObjektsController < ApplicationController
-  before_action :set_objekt, only: [:show, :edit, :update, :destroy]
-
   # GET /objekts
   # GET /objekts.json
   def index
@@ -20,57 +18,36 @@ class ObjektsController < ApplicationController
   end
 
   def create
-    @objekt = Objekt.new(lese_params("objekt"))
-    if @objekt.save
-      success(@objekt.id)
-    else
-      error(@objekt.errors)
+    @objekt = Objekt.new(objekt_params())
+    respond_to do |format|
+      if @objekt.save
+        format.xml {render :xml => '<?xml version="1.0" encoding="UTF-8"?><success />'}
+      else
+        format.xml {render :xml => '<?xml version="1.0" encoding="UTF-8"?><error />'}
+      end
     end
   end
 
   def update
     @objekt = Objekt.find(params[:id])
-    if @objekt.update(lese_params("objekt"))
-      success
-    else
-      error(@objekt.errors)
+    respond_to do |format|
+      if @objekt.update(objekt_params())
+        format.xml {render :xml => '<?xml version="1.0" encoding="UTF-8"?><success />'}
+      else
+        format.xml {render :xml => '<?xml version="1.0" encoding="UTF-8"?><error />'}
+      end
     end
   end
 
   private
-    def lese_params(root_tag)
-      xml = request.body.read
-      return Hash.from_xml(xml)['elwak'][root_tag]
-    end
-
-    def success(id)
-      @antwort = ""
-      xml = Builder::XmlMarkup.new( :target => @antwort, :indent => 2 )
-      xml.instruct!
-
-      if id
-        xml.success id
-      else
-        xml.success
-      end
-      respond_to do |format|
-        format.xml {render :xml => @antwort}
-      end
+    def objekt_params()
+      doc = Nokogiri::XML(request.body.read)
+      puts "xml: " + doc.to_s
+      oNode = doc.xpath('elwak/objekt')
+      return {
+        bezeichner: oNode.xpath('bezeichner').text.to_s,
+        inaktiv: oNode.xpath('inaktiv').text.to_s.to_bool
+      }
     end
     
-    def error(message)
-      @antwort = ""
-      xml = Builder::XmlMarkup.new( :target => @antwort, :indent => 2 )
-      xml.instruct!
-
-      if message
-        xml.error message
-      else
-        xml.error
-      end
-      respond_to do |format|
-        format.xml {render :xml => @antwort}
-      end
-    end
-      
 end

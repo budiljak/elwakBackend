@@ -6,7 +6,8 @@ class Benutzer < ActiveRecord::Base
     def setze_objekt_zuordnungen(objekt_ids)
       objekt_zuordnungs.destroy_all
       objekt_ids.each {|value|
-        objekt_zuordnungs.create(key => value)
+        puts "value: " + value.to_s
+        objekt_zuordnungs.create(:objekt_id => value)
       }
     end
       

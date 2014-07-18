@@ -16,7 +16,7 @@ class BenutzersController < ApplicationController
     proc = Proc.new{|options, record| options[:builder].tag!('ts', record.updated_at.iso8601(9)) }
     respond_to do |format|
       format.html # index.html.erb
-      format.xml {render :xml => @benutzers, :except => [:updated_at, :created_at], :dasherize => false, root: "benutzers", :procs => [proc]}
+      format.xml {render :xml => @benutzers, :except => [:updated_at, :created_at], :dasherize => false, root: "benutzers", :procs => [proc], :include => [:objekt_zuordnungs]}
     end
   end
 
@@ -29,7 +29,8 @@ class BenutzersController < ApplicationController
     @benutzer = Benutzer.new(benutzer_params(bNode))
     if @benutzer.save
       if bNode.xpath('objekt_zuordnungs').length > 0
-        @benutzer.setze_objekt_zuordnungen(bNode.xpath('objekt_zuordnungs/objekt_id').map{|oz| oz.text.to_s.to_i})
+        objekt_ids = bNode.xpath('objekt_zuordnungs/objekt_id').map{|oz| oz.text.to_s.to_i}
+        @benutzer.setze_objekt_zuordnungen(objekt_ids)
       end
       success(@benutzer.id)
     else
@@ -44,6 +45,10 @@ class BenutzersController < ApplicationController
     bNode = doc.xpath('elwak/benutzer')
 
     @benutzer = Benutzer.find(params[:id])
+    
+    #Sicherstellen, dass Benutzer synchronisiert wird auch wenn nur Objekt-Zuordnungen anders sind!
+    @benutzer.updated_at = DateTime.now 
+
     if bNode.xpath('objekt_zuordnungs').length > 0
       @benutzer.setze_objekt_zuordnungen(bNode.xpath('objekt_zuordnungs/objekt_id').map{|oz| oz.text.to_s.to_i})
     end

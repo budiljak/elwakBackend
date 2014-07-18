@@ -38,7 +38,7 @@ xml.schichts do
         end
         xml.kontrollgangs do
           s.wachbuch_eintrag.kontrollgangs.each do |kg|
-            xml.kontrollanruf do
+            xml.kontrollgang do
               xml.uhrzeit kg.uhrzeit
               xml.bemerkung kg.bemerkung
               xml.position kg.position
