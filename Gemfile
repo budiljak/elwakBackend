@@ -48,7 +48,7 @@ gem 'nokogiri'
 gem 'capistrano', group: :development
 gem 'capistrano-bundler', group: :development
 gem 'capistrano-rails', group: :development
-gem 'capistrano-rbenv', github: "capistrano/rbenv"
+gem 'capistrano-rbenv', github: "capistrano/rbenv", group: :development
 # gem 'capistrano-rvm', github: "capistrano/rvm", group: :development
 
 # Use debugger
