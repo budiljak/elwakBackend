@@ -36,7 +36,6 @@ class ChecklistenVorlagesController < ApplicationController
       inaktiv: cvNode.xpath('inaktiv').text.to_s.to_bool 
     })
     cv.save
-    puts "checklisten_eintrags: " + cvNode.xpath('checklisten_eintrags/checklisten_eintrag').to_s
 
     cvNode.xpath('checklisten_eintrags/checklisten_eintrag').each do |ceNode|
       ce = ChecklistenEintrag.new({

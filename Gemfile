@@ -6,6 +6,8 @@ gem 'rails', '4.0.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
+gem 'mysql'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
@@ -46,7 +48,8 @@ gem 'nokogiri'
 gem 'capistrano', group: :development
 gem 'capistrano-bundler', group: :development
 gem 'capistrano-rails', group: :development
-gem 'capistrano-rvm', github: "capistrano/rvm", group: :development
+gem 'capistrano-rbenv', github: "capistrano/rbenv"
+# gem 'capistrano-rvm', github: "capistrano/rvm", group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]

@@ -10,7 +10,6 @@ class SyncController < ApplicationController
       n = DateTime.now
       ts_von = DateTime.new(n.year - 1, n.month, n.day)
     end
-    puts "ts_von: " + ts_von.to_s
     if Benutzer.where("updated_at > ?", ts_von).count > 0
       new_max = Benutzer.where("updated_at > ?", ts_von).maximum(:updated_at)
       if !ts_bis or new_max > ts_bis

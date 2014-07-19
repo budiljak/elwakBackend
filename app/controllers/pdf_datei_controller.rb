@@ -15,7 +15,6 @@ class PdfDateiController < ApplicationController
       ts_von = DateTime.new(n.year - 1, n.month, n.day)
     end
     @pdfs = PdfDatei.where(:objekt_id=>objekt_id).where("updated_at > ? and updated_at <= ?", ts_von, ts_bis)
-    puts @pdfs.count
     proc = Proc.new{|options, record| options[:builder].tag!('ts', record.updated_at.iso8601(9)) }
     respond_to do |format|
       format.html # index.html.erb

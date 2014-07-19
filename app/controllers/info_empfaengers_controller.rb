@@ -1,8 +1,4 @@
 class InfoEmpfaengersController < ApplicationController
-  after_filter do
-    puts response.body
-  end
-
   def index
     ts_bis = DateTime.parse(params[:ts_bis])
     if params.has_key?(:benutzer_id)
@@ -32,7 +28,6 @@ class InfoEmpfaengersController < ApplicationController
         @info_empfaengers.push(ie)
       end
     end
-    puts "ies: " + @info_empfaengers.to_s
     proc = Proc.new{|options, record| options[:builder].tag!('ts', record.updated_at.iso8601(9)) }
     respond_to do |format|
       format.html # index.html.erb
@@ -48,7 +43,6 @@ class InfoEmpfaengersController < ApplicationController
       id: iNode.xpath('id').text.to_s,
       gelesen: iNode.xpath('gelesen').text.to_s.to_bool
     }
-    puts "update_params: " + update_params.to_s
     @infoEmpfaenger = InfoEmpfaenger.find(params[:id])
 
     respond_to do |format|

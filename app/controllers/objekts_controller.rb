@@ -42,7 +42,6 @@ class ObjektsController < ApplicationController
   private
     def objekt_params()
       doc = Nokogiri::XML(request.body.read)
-      puts "xml: " + doc.to_s
       oNode = doc.xpath('elwak/objekt')
       return {
         bezeichner: oNode.xpath('bezeichner').text.to_s,

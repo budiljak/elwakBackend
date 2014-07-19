@@ -85,7 +85,6 @@ class SchichtsController < ApplicationController
       end
       s.save
       wbNode = sNode.xpath('wachbuch_eintrag')
-      puts "wbNode: " + wbNode.to_s
       parseWachbuchEintrag(wbNode, s)
       sNode.xpath('checklistes/checkliste').each do |cNode|
         parseCheckliste(cNode, s)
@@ -103,9 +102,6 @@ class SchichtsController < ApplicationController
         schluessel_bemerkung: wbNode.xpath('schluessel_bemerkung').text.to_s, 
         schicht: s
       })
-      puts "wb.ausruestung_vollzaehlig: " + wb.ausruestung_vollzaehlig.to_s
-      puts "wb.ausruestung_funktion: " + wb.ausruestung_funktion.to_s
-      puts "wb.schluessel_vollzaehlig: " + wb.schluessel_vollzaehlig.to_s
       wb.save
       wbNode.xpath('kontrollanrufs/kontrollanruf').each do |kaNode|
         ka = Kontrollanruf.new({

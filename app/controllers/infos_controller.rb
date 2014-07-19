@@ -1,8 +1,5 @@
 class InfosController < ApplicationController
   before_action :set_info, only: [:show, :edit, :update, :destroy]
-  after_filter do
-    puts response.body
-  end
 
   # GET /infos
   # GET /infos.json
