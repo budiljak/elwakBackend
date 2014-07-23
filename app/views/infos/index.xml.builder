@@ -5,7 +5,7 @@ xml.infos do
       xml.id i.id
       xml.benutzer_id i.benutzer_id
       xml.art i.art
-      xml.datum_uhrzeit i.datum_uhrzeit.strftime("%F")
+      xml.datum_uhrzeit i.datum_uhrzeit.strftime("%F %H:%M")
       xml.betreff i.betreff
       xml.text i.text
       xml.datei i.datei
