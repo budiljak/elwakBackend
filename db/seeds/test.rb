@@ -31,20 +31,20 @@ while tag < DateTime.now do
     end
   end
   schichts = Schicht.create([
-    {objekt: objekts[0], benutzer: benutzers[1], datum: tag, uhrzeit_beginn: (tag + 2.hours).strftime("%F"), uhrzeit_ende: tag + 10.hours}, 
-    {objekt: objekts[0], benutzer: benutzers[2], datum: tag, uhrzeit_beginn: (tag + 10.hours).strftime("%F"), uhrzeit_ende: tag + 18.hours}, 
-    {objekt: objekts[0], benutzer: benutzers[1], datum: tag, uhrzeit_beginn: (tag + 18.hours).strftime("%F"), uhrzeit_ende: tag + 26.hours}
+    {objekt: objekts[0], benutzer: benutzers[1], datum: tag, uhrzeit_beginn: (tag + 2.hours).strftime("%H:%M"), uhrzeit_ende: (tag + 10.hours).strftime("%H:%M")}, 
+    {objekt: objekts[0], benutzer: benutzers[2], datum: tag, uhrzeit_beginn: (tag + 10.hours).strftime("%H:%M"), uhrzeit_ende: (tag + 18.hours).strftime("%H:%M")}, 
+    {objekt: objekts[0], benutzer: benutzers[1], datum: tag, uhrzeit_beginn: (tag + 18.hours).strftime("%H:%M"), uhrzeit_ende: (tag + 26.hours).strftime("%H:%M")}
   ])
   schichts.each do |s|
     zeitBeginn = Time.parse(s.uhrzeit_beginn)
     Rapport.create([
-      {schicht: s, beschreibung: 'beschr1', ort:'ort1', uhrzeit: (zeitBeginn + 2.hours).strftime("%F"), massnahmen: 'massn1', position: 1}, 
-      {schicht: s, beschreibung: 'beschr2', ort:'ort2', uhrzeit: (zeitBeginn + 4.hours).strftime("%F"), massnahmen: 'massn2', position: 2}, 
-      {schicht: s, beschreibung: 'beschr3', ort:'ort3', uhrzeit: (zeitBeginn + 6.hours).strftime("%F"), massnahmen: 'massn3', position: 3}
+      {schicht: s, beschreibung: 'beschr1', ort:'ort1', uhrzeit: (zeitBeginn + 2.hours).strftime("%H:%M"), massnahmen: 'massn1', position: 1}, 
+      {schicht: s, beschreibung: 'beschr2', ort:'ort2', uhrzeit: (zeitBeginn + 4.hours).strftime("%H:%M"), massnahmen: 'massn2', position: 2}, 
+      {schicht: s, beschreibung: 'beschr3', ort:'ort3', uhrzeit: (zeitBeginn + 6.hours).strftime("%H:%M"), massnahmen: 'massn3', position: 3}
     ])
     wb = WachbuchEintrag.create({schicht: s, besonderheiten: 'bes', schaeden: 'schä', schluessel_bemerkung: 'schlüBem'})
-    Kontrollanruf.create({wachbuch_eintrag: wb, uhrzeit: zeitBeginn + 2.hours, bemerkung: 'bem', objekt: 'obj'})
-    Kontrollgang.create({wachbuch_eintrag: wb, uhrzeit: zeitBeginn + 4.hours, bemerkung: 'bem'})
+    Kontrollanruf.create({wachbuch_eintrag: wb, uhrzeit: (zeitBeginn + 2.hours).strftime("%H:%M"), bemerkung: 'bem', objekt: 'obj'})
+    Kontrollgang.create({wachbuch_eintrag: wb, uhrzeit: (zeitBeginn + 4.hours).strftime("%H:%M"), bemerkung: 'bem'})
   end
   tag = tag + 1.days
 end
