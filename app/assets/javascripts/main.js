@@ -26,7 +26,7 @@ function refresh_infos_list() {
     dataType: "json",
     success: function (data) {
       $.each(data, function (index, value) {
-        var newRow = $("<tr><td>" + value[0] + "</td><td>" + value[1] + "</td><td>" + value[2] + "</td></tr>");
+        var newRow = $("<tr><td>" + value[0] + "</td><td class=\"infos_datum\">" + value[1] + "</td><td>" + value[2] + "</td></tr>");
         if (value[3] != 0) {
           newRow.addClass("info_art_text_color_" + value[3]);
         }
