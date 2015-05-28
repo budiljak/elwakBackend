@@ -1,6 +1,7 @@
 <div id="main_parent">
   <div id="main_all_headers">
     <div style="width:40em;float:right">
+      <p style="text-align:right; margin:-10px 0 3px 0;padding: 0"><%= link_to "Abmelden", logout_path, method: :delete %></p>
       <table width="100%" id="main_session_info">
         <tr>
           <th>Wachmann</th>
@@ -19,6 +20,14 @@
           <td>
             <input type="button" onclick="not_yet()" id="btn_schicht" value="Schicht beginnen" />
           </td>
+        </tr>
+        <tr>
+          <th></th>
+          <td>
+          </td>
+          <td>
+          </td>
+
         </tr>
       </table>
     </div>
