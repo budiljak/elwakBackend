@@ -1,4 +1,3 @@
-json.array!(@infos) do |info|
-  json.extract! info, :id, :benutzer_id, :art, :datum, :betreff, :text, :datei
-  json.url info_url(info, format: :json)
+json.array! @infos do |info|
+  json.array! [info.benutzer.nachname, info.datum_uhrzeit.strftime(FORMAT_INFO_DATUM), info.betreff, info.art, info.info_empfaengers[0].gelesen, info_path(info)]
 end

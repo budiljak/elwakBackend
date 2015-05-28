@@ -1,34 +1,21 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <strong>Benutzer:</strong>
-  <%= @info.benutzer %>
+<% if @info.art != INFO_ART_NORMAL %>
+  <span style="float:right; padding:1px 10px; background-color: <%= INFO_ART_HINTERGRUNDFARBE[@info.art] %>">
+    <strong>Art:</strong> <%= INFO_ART_STRING[@info.art] %>
+  </span>
+<% end %>
+  <strong>Betreff:</strong> 
+  <div style="clear: both" class="like_input"><%= @info.betreff %></div>
 </p>
 
 <p>
-  <strong>Art:</strong>
-  <%= @info.art %>
+  <strong>Nachricht:</strong>
+  <div style="height: 10em; overflow: auto;" class="like_input"><%= @info.text %></div>
 </p>
 
 <p>
-  <strong>Datum:</strong>
-  <%= @info.datum %>
+  <strong>Dokument:</strong>
+  <span style="width: 60%" class="like_input"><%= if @info.datei && @info.datei.length > 0 then @info.datei else "&nbsp;".html_safe end %></span>
+    <button onclick="not_yet()">Dokument lesen</button>
 </p>
 
-<p>
-  <strong>Betreff:</strong>
-  <%= @info.betreff %>
-</p>
-
-<p>
-  <strong>Text:</strong>
-  <%= @info.text %>
-</p>
-
-<p>
-  <strong>Datei:</strong>
-  <%= @info.datei %>
-</p>
-
-<%= link_to 'Edit', edit_info_path(@info) %> |
-<%= link_to 'Back', infos_path %>

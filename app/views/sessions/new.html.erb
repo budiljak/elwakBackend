@@ -1,0 +1,61 @@
+<% provide(:title, "Login") %>
+<script>
+$(function () {
+    refresh_objekts_list();
+    $('#session_login').change(function() {
+      refresh_objekts_list();
+    });
+    $('#session_passwort').change(function() {
+      refresh_objekts_list();
+      });
+    });
+
+function refresh_objekts_list() {
+  $.ajax({ 
+    url: "<%= update_objekts_path %>",
+    data: { 
+      session_login : $('#session_login').val(),
+      session_passwort : $('#session_passwort').val()
+    },
+    dataType: "script"
+  });
+}
+</script>
+
+<div class="login_parent">
+  <div class="login_box">
+    <p class="centered">
+      <img style="margin-bottom: 10px;" src="/images/logo.jpg">
+      <div style="text-align:center">Version <%= VERSION %></div>
+    </p>
+    <div style="padding:0 80px 0 80px">
+      <%= form_for(:session, url: login_path) do |f| %>
+
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
+
+      <p>
+      <%= f.label :login %><br />
+      <%= f.text_field :login, class: 'form-control' %>
+      </p>
+
+      <p>
+      <%= f.label :passwort %><br />
+      <%= f.password_field :passwort, class: 'form-control' %>
+      </p>
+
+      <p>
+      <%= f.label :objekt %><br />
+      <%= f.select(:objekt_id, [], {include_blank: '<Objekt wählen>'}, {class: 'form-control'}) %>
+      </p>
+
+      <p class="centered">
+      <%= f.submit "Login", class: "btn btn-primary" %>
+      </p>
+    </div>
+  <% end %>
+
+  </div>
+</div>
+

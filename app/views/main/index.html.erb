@@ -1,0 +1,104 @@
+<div id="main_parent">
+  <div id="main_all_headers">
+    <div style="width:40em;float:right">
+      <table width="100%" id="main_session_info">
+        <tr>
+          <th>Wachmann</th>
+          <td style="width:16em">
+            <div class="like_input"><%= current_user.nachname %></div>
+          </td>
+          <td style="width:16em">
+            <div class="like_input"><%= current_objekt.bezeichner %></div>
+          </td>
+        </tr>
+        <tr>
+          <th>Aktuelle Schicht</th>
+          <td>
+            <div class="like_input">&nbsp;</div>
+          </td>
+          <td>
+            <input type="button" onclick="not_yet()" id="btn_schicht" value="Schicht beginnen" />
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <script>
+  </script>
+  <div id="main_tabs" style="clear:both">
+    <ul>
+      <li><a href="#tab_infos">Infos</a></li>
+      <li><a href="#tab_wachbuch">Wachbuch</a></li>
+      <li><a href="#tab_dokumente">Dokumente</a></li>
+    </ul>
+    <div id="tab_infos">
+      <h1>Infos</h1>
+      <div id="infos_list_container">
+        <table id="infos_list">
+          <thead>
+            <tr>
+              <th>Absender</th>
+              <th>Datum</th>
+              <th>Betreff</th>
+            </tr>
+          </thead>
+          <tbody id="infos_list_body">
+          </tbody>
+        </table>
+      </div>
+      <div id="info_container"></div>
+    </div>
+    <div id="tab_wachbuch">
+      <h1>Wachbuch</h1>
+      <table id="wachbuch_container">
+        <tr>
+          <td class="wachbuch_container_column">
+            <select id="list_schichts" size="18">
+            </select>
+          </td>
+          <td class="wachbuch_container_column">
+            <h2>Rapporte</h2>
+            <select id="list_rapports" size="15">
+            </select>
+          </td>
+          <td class="wachbuch_container_column">
+            <h2>Checklisten</h2>
+            <select id="list_checklistes" style="" size="15">
+            </select>
+          </td>
+        </tr>
+        <tr height="40">
+          <td>
+            <button onclick="not_yet()" class="big_button">Wachbucheintrag bearbeiten</button>
+          </td>
+          <td>
+            <table><tr>
+                <td width="70%">
+                  <button onclick="not_yet()" class="big_button">Rapport</button>
+                </td>
+                <td>
+                  <button onclick="not_yet()">Löschen</button>
+                </td>
+            </tr></table>
+          </td>
+          <td>
+            <table><tr>
+                <td width="70%">
+                  <button onclick="not_yet()" class="big_button">Checkliste</button>
+                </td>
+                <td>
+                  <button onclick="not_yet()">Löschen</button>
+                </td>
+            </tr></table>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="tab_dokumente">
+      <h1>Dokumente</h1>
+
+
+    </div>
+  </div>
+</div>
+

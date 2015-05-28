@@ -1,40 +1,25 @@
 class InfosController < ApplicationController
+  include SessionsHelper
   before_action :set_info, only: [:show, :edit, :update, :destroy]
 
   # GET /infos
   # GET /infos.json
   def index
-    ts_bis = DateTime.parse(params[:ts_bis])
-    if params.has_key?(:benutzer_id)
-      benutzer_id = params[:benutzer_id].to_i
+    if request.format.json?
+      prepare_infos_json
     else
-      benutzer_id = nil
+      prepare_infos_xml
     end
-    if params.has_key?(:ts_von)
-      ts_von = DateTime.parse(params[:ts_von])
-    else
-      n = DateTime.now
-      ts_von = DateTime.new(n.year - 1, n.month, n.day)
-    end
-    infos_empfangen = Info.joins(:info_empfaengers).where("info_empfaengers.benutzer_id = ?", benutzer_id).where("infos.updated_at > ? and infos.updated_at <= ?", ts_von, ts_bis)
-    infos_gesendet = Info.where("benutzer_id = ?", benutzer_id).where("infos.updated_at > ? and infos.updated_at <= ?", ts_von, ts_bis)
-    ids = []
-    @infos = []
-    infos_empfangen.each do |i|
-      if not ids.include?(i.id)
-        ids.push(i.id)
-        @infos.push(i)
-      end
-    end
-    infos_gesendet.each do |i|
-      if not ids.include?(i.id)
-        ids.push(i.id)
-        @infos.push(i)
-      end
-    end
-    proc = Proc.new{|options, record| options[:builder].tag!('ts', record.updated_at.iso8601(9)) }
+    # proc = Proc.new{|options, record| options[:builder].tag!('ts', record.updated_at.iso8601(9)) }
     respond_to do |format|
       format.xml # {render :xml => @infos, :except => [:updated_at, :created_at], :dasherize => false, root:"infos", :procs => [proc]}
+      format.json # {render json: @infos}
+    end
+  end
+  
+  def show
+    respond_to do |format|
+      format.html {render layout: false}
     end
   end
 
@@ -59,7 +44,49 @@ class InfosController < ApplicationController
     end
   end
 
+  def embeddable_list
+    
+    
+  end
+
   private
+    def prepare_infos_xml
+      ts_bis = DateTime.parse(params[:ts_bis])
+      if params.has_key?(:benutzer_id)
+        benutzer_id = params[:benutzer_id].to_i
+      else
+        benutzer_id = nil
+      end
+      if params.has_key?(:ts_von)
+        ts_von = DateTime.parse(params[:ts_von])
+      else
+        n = DateTime.now
+        ts_von = DateTime.new(n.year - 1, n.month, n.day)
+      end
+      infos_empfangen = Info.joins(:info_empfaengers).where("info_empfaengers.benutzer_id = ?", benutzer_id).where("infos.updated_at > ? and infos.updated_at <= ?", ts_von, ts_bis)
+      infos_gesendet = Info.where("benutzer_id = ?", benutzer_id).where("infos.updated_at > ? and infos.updated_at <= ?", ts_von, ts_bis)
+      ids = []
+      @infos = []
+      infos_empfangen.each do |i|
+        if not ids.include?(i.id)
+          ids.push(i.id)
+          @infos.push(i)
+        end
+      end
+      infos_gesendet.each do |i|
+        if not ids.include?(i.id)
+          ids.push(i.id)
+          @infos.push(i)
+        end
+      end
+    end
+
+    def prepare_infos_json
+      n = DateTime.now
+      ts_von = DateTime.new(n.year - 1, n.month, n.day)
+      @infos = Info.eager_load(:info_empfaengers).eager_load(:benutzers).where("info_empfaengers.benutzer_id = ?", current_user.id).where("infos.updated_at > ?", ts_von).order(datum_uhrzeit: :desc)
+    end
+      
     def parse_info(iNode)
       puts "datUhr: " +  iNode.xpath('datum_uhrzeit').text.to_s,
       i = Info.new({

@@ -1,3 +1,108 @@
 // Place all the styles related to the Infos controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#infos_list_container {
+  float: left;
+  width: 45%;
+  height: 350px;
+  overflow-y: scroll;
+  overflow-x: auto;
+}
+
+#infos_list {
+  width: 100%;
+  border: 1px solid lightgray;
+  border-spacing: 0;
+}
+
+#infos_list thead {
+  background-color: lightgray;
+}
+
+#infos_list td, th {
+  border: 0;
+  padding: 2px 7px;
+  text-align: left;
+}
+
+.info_art_background_0 {
+  background-color: white;
+}
+
+.info_art_background_1 {
+  background-color: lightblue;
+}
+
+.info_art_background_2 {
+  background-color: lightgreen;
+}
+
+.info_art_background_3 {
+  background-color: plum;
+}
+
+.info_art_background_4 {
+  background-color: tomato;
+}
+
+.info_art_text_color_0 {
+  color: white;
+}
+
+.info_art_text_color_1 {
+  color: blue;
+}
+
+.info_art_text_color_2 {
+  color: green;
+}
+
+.info_art_text_color_3 {
+  color: purple;
+}
+
+.info_art_text_color_4 {
+  color: red;
+}
+
+.info_ungelesen {
+  font-weight: bold;
+}
+
+#infos_list_body .ui-selectee {
+  cursor: pointer;
+}
+
+#infos_list_body .ui-selectee:hover {
+  background-color: lightblue;
+}
+
+#infos_list_body .ui-selected {
+  background-color: blue;
+  color: white;
+}
+
+#infos_list_body .ui-selected .info_art_text_color_0,#infos_list_body .ui-selected .info_art_text_color_1,#infos_list_body .ui-selected .info_art_text_color_2,#infos_list_body .ui-selected .info_art_text_color_3,#infos_list_body .ui-selected .info_art_text_color_4 {
+  background-color: blue;
+  color: white;
+}
+
+#infos_list_body .ui-selected:hover {
+  background-color: blue;
+  color: white;
+}
+
+#info_container {
+  float: right;
+  width: 45%;
+  min-height: 300px;
+  margin-right: 5%;
+  border: 1px solid lightgray;
+  padding: 5px;
+}
+
+#info_container p {
+  margin: 5px 1px 3px 1px;
+}
+

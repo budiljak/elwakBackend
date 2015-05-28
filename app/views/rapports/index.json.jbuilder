@@ -1,4 +1,3 @@
 json.array!(@rapports) do |rapport|
-  json.extract! rapport, :id, :schicht_id, :beschreibung, :ort, :uhrzeit, :massnahmen, :position
-  json.url rapport_url(rapport, format: :json)
+  json.array! [rapport_bezeichner(rapport), rapport_path(rapport, format: :json)]
 end

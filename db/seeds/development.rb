@@ -35,6 +35,16 @@ while tag < DateTime.now do
     {objekt: objekts[0], benutzer: benutzers[2], datum: tag, uhrzeit_beginn: (tag + 10.hours).strftime("%H:%M"), uhrzeit_ende: (tag + 18.hours).strftime("%H:%M")}, 
     {objekt: objekts[0], benutzer: benutzers[1], datum: tag, uhrzeit_beginn: (tag + 18.hours).strftime("%H:%M"), uhrzeit_ende: (tag + 26.hours).strftime("%H:%M")}
   ])
+  checklisten_vorlages = ChecklistenVorlage.create([
+    {bezeichner: "liste1", objekt: objekts[0]}
+  ])
+  ChecklistenEintrag.create([
+    {checklisten_vorlage: checklisten_vorlages[0], bezeichner: "eintrag1", was: "was1", wann: "wann1", typ: CHECKLISTE_TYP_JA_NEIN, position: 1},
+    {checklisten_vorlage: checklisten_vorlages[0], bezeichner: "eintrag2", was: "was2", wann: "wann2", typ: CHECKLISTE_TYP_DATUM, position: 2},
+    {checklisten_vorlage: checklisten_vorlages[0], bezeichner: "eintrag3", was: "was3", wann: "wann3", typ: CHECKLISTE_TYP_UHRZEIT, position: 3},
+    {checklisten_vorlage: checklisten_vorlages[0], bezeichner: "eintrag4", was: "was4", wann: "wann4", typ: CHECKLISTE_TYP_FREITEXT, position: 4}
+  ]) 
+  
   schichts.each do |s|
     zeitBeginn = Time.parse(s.uhrzeit_beginn)
     Rapport.create([
@@ -45,6 +55,16 @@ while tag < DateTime.now do
     wb = WachbuchEintrag.create({schicht: s, besonderheiten: 'bes', schaeden: 'schä', schluessel_bemerkung: 'schlüBem'})
     Kontrollanruf.create({wachbuch_eintrag: wb, uhrzeit: (zeitBeginn + 2.hours).strftime("%H:%M"), bemerkung: 'bem', objekt: 'obj'})
     Kontrollgang.create({wachbuch_eintrag: wb, uhrzeit: (zeitBeginn + 4.hours).strftime("%H:%M"), bemerkung: 'bem'})
+    checklistes = Checkliste.create([
+      {schicht: s, checklisten_vorlage: checklisten_vorlages[0], uhrzeit: (zeitBeginn + 3.hours).strftime("%H:%M")},
+      {schicht: s, checklisten_vorlage: checklisten_vorlages[0], uhrzeit: (zeitBeginn + 3.hours).strftime("%H:%M")}
+    ])
+    ChecklistenWert.create([
+      {checkliste: checklistes[0], checklisten_eintrag: checklistes[0].checklisten_vorlage.checklisten_eintrags[0], inhalt: CHECKLISTE_WERT_JA},
+      {checkliste: checklistes[0], checklisten_eintrag: checklistes[0].checklisten_vorlage.checklisten_eintrags[1], inhalt: "21.05.2015"},
+      {checkliste: checklistes[0], checklisten_eintrag: checklistes[0].checklisten_vorlage.checklisten_eintrags[2], inhalt: (zeitBeginn + 2.hours + 30.minutes).strftime("%H:%M")},
+      {checkliste: checklistes[0], checklisten_eintrag: checklistes[0].checklisten_vorlage.checklisten_eintrags[3], inhalt: "test-freitext mit mehreren Wörtern und einem gaaaaaaaaaaaaaaaaaaanzschönlangem Wort!"},
+    ])
   end
   tag = tag + 1.days
 end

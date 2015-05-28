@@ -1,3 +1,20 @@
 // Place all the styles related to the Schichts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#wachbuch_container {
+  width:850px; height:350px;
+}
+
+.wachbuch_container_column {
+  width:33%;
+  vertical-align: top;
+}
+
+#wachbuch_container button {
+  margin: 5px 15px;
+}
+
+#list_schichts {
+  height:100%;
+}

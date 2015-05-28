@@ -2,28 +2,22 @@
 require 'nokogiri'
 require 'builder'
 class SchichtsController < ApplicationController
+  include SessionsHelper
   before_action :set_schicht, only: [:show, :edit, :update, :destroy]
 
   # GET /schichts
   # GET /schichts.json
   def index
-    ts_bis = DateTime.parse(params[:ts_bis])
-    if params.has_key?(:objekt_id)
-      objekt_id = params[:objekt_id].to_i
+    if request.format.json?
+      prepare_schichts_json
     else
-      objekt_id = nil
+      prepare_schichts_xml
     end
-    if params.has_key?(:ts_von)
-      ts_von = DateTime.parse(params[:ts_von])
-    else
-      n = DateTime.now
-      ts_von = DateTime.new(n.year - 1, n.month, n.day)
-    end
-    @schichts = Schicht.where(:objekt_id => objekt_id).where("updated_at > ? and updated_at <= ?", ts_von, ts_bis)
-    proc = Proc.new{|options, record| options[:builder].tag!('ts', record.updated_at.iso8601(9)) }
+    # proc = Proc.new{|options, record| options[:builder].tag!('ts', record.updated_at.iso8601(9)) }
     respond_to do |format|
       format.html # index.html.erb
       format.xml #{render :xml => @schichts, :except => [:updated_at, :created_at], :dasherize => false, root:"schichts", :procs => [proc]}
+      format.json
     end
   end
 
@@ -64,6 +58,28 @@ class SchichtsController < ApplicationController
   end
 
   private
+    def prepare_schichts_xml
+      ts_bis = DateTime.parse(params[:ts_bis])
+      if params.has_key?(:objekt_id)
+        objekt_id = params[:objekt_id].to_i
+      else
+        objekt_id = nil
+      end
+      if params.has_key?(:ts_von)
+        ts_von = DateTime.parse(params[:ts_von])
+      else
+        n = DateTime.now
+        ts_von = DateTime.new(n.year - 1, n.month, n.day)
+      end
+      @schichts = Schicht.where(:objekt_id => objekt_id).where("updated_at > ? and updated_at <= ?", ts_von, ts_bis)
+    end
+
+    def prepare_schichts_json
+        n = DateTime.now
+        ts_von = DateTime.new(n.year - 1, n.month, n.day)
+        @schichts = Schicht.eager_load(:benutzer).where(:objekt_id => current_objekt.id).where("schichts.updated_at > ?", ts_von)
+    end
+  
     def parseSchicht(sNode)
       s = Schicht.new({
         objekt_id: sNode.xpath('objekt_id').text.to_s, 
