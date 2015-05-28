@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
         flash.now[:danger] = 'Bitte das Objekt auswählen!'
         render 'new'
       else
-        if !ObjektZuordnung.exists?({benutzer_id: user.id,  objekt_id: objekt_id})
+        if user.typ != VERWALTER && !ObjektZuordnung.exists?({benutzer_id: user.id,  objekt_id: objekt_id})
           flash.now[:danger] = 'Ungültiges Objekt!'
           render 'new'
         else

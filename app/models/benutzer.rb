@@ -11,7 +11,7 @@ class Benutzer < ActiveRecord::Base
   end
 
   def authenticate(password)
-    passwort = password
+    passwort == password
   end
       
 end
