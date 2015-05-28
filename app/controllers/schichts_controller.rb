@@ -77,7 +77,7 @@ class SchichtsController < ApplicationController
     def prepare_schichts_json
         n = DateTime.now
         ts_von = DateTime.new(n.year - 1, n.month, n.day)
-        @schichts = Schicht.eager_load(:benutzer).where(:objekt_id => current_objekt.id).where("schichts.updated_at > ?", ts_von)
+        @schichts = Schicht.eager_load(:benutzer).where(:objekt_id => current_objekt.id).where("schichts.updated_at > ?", ts_von).order(datum: :desc, uhrzeit_beginn: :desc)
     end
   
     def parseSchicht(sNode)
