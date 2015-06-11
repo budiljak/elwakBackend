@@ -14,6 +14,10 @@ module SessionsHelper
   def current_objekt
     @current_objekt ||= Objekt.find_by(id: session[:objekt_id])
   end
+  
+  def current_schicht
+    @current_schicht ||= Schicht.find_by(benutzer_id: current_user.id, objekt_id: current_objekt.id, beendet: false)
+  end
 
   # Returns true if the user is logged in, false otherwise.
   def logged_in?

@@ -18,3 +18,25 @@
 #list_schichts {
   height:100%;
 }
+
+.details_dialog {
+  padding: 30px;
+  margin: 0;
+}
+
+.details_dialog textarea {
+  width: 100%;
+}
+
+.dialog_header {
+  background-color: #ff9;
+  width:100%;
+  margin-bottom: 2em;
+  th {
+    width:7em;
+  }
+}
+
+.actions {
+  margin-top: 1em;
+}

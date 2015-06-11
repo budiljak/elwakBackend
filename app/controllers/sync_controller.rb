@@ -110,7 +110,7 @@ class SyncController < ApplicationController
         ts_bis = new_max
       end
     end
-    if Schicht.where(:objekt_id => objekt_id).where("updated_at > ?", ts_von).count > 0
+    if Schicht.where(:objekt_id => objekt_id).where("updated_at > ?", ts_von).where(beendet: true).count > 0
       new_max = Schicht.where(:objekt_id => objekt_id).where("updated_at > ?", ts_von).maximum(:updated_at)
       if !ts_bis or new_max > ts_bis
         ts_bis = new_max

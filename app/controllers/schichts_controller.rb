@@ -3,7 +3,7 @@ require 'nokogiri'
 require 'builder'
 class SchichtsController < ApplicationController
   include SessionsHelper
-  before_action :set_schicht, only: [:show, :edit, :update, :destroy]
+  before_action :set_schicht, only: [:show, :edit, :dialog_header, :destroy]
 
   # GET /schichts
   # GET /schichts.json
@@ -21,31 +21,57 @@ class SchichtsController < ApplicationController
     end
   end
 
+  def new
+    @schicht = Schicht.new
+    n = DateTime.now
+    @schicht.datum = DateTime.new(n.year, n.month, n.day)
+    @schicht.uhrzeit_beginn = n.strftime('%H') + ":00"
+    @schicht.uhrzeit_ende = (n + 8.hours).strftime('%H') + ":00"
+    render partial: 'form'
+  end
+
   # POST /schichts
   # POST /schichts.json
   def create
-    #@schicht = Schicht.new(schicht_params)
-    doc = Nokogiri::XML(request.body.read)
-    sNode = doc.xpath('elwak/schicht')[0]
-    @schicht = parseSchicht(sNode)
+    if request.format.js?
+      @schicht = Schicht.new(schicht_params)
+      @schicht.benutzer = current_user
+      @schicht.objekt = current_objekt
+      @schicht.wachbuch_eintrag = WachbuchEintrag.create
+      @schicht.save
+    else
+      doc = Nokogiri::XML(request.body.read)
+      sNode = doc.xpath('elwak/schicht')[0]
+      @schicht = parseSchicht(sNode)
+    end
     respond_to do |format|
       format.xml {render :xml => '<?xml version="1.0" encoding="UTF-8"?><success />'}
+      format.js {render action: 'save_success'}
     end
   end
 
-  # PATCH/PUT /schichts/1
-  # PATCH/PUT /schichts/1.json
-  def update
-    respond_to do |format|
-      if @schicht.update(schicht_params)
-        format.html { redirect_to @schicht, notice: 'Schicht was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @schicht.errors, status: :unprocessable_entity }
-      end
+  def finish
+    if current_schicht.update(beendet: true)
+      render action: 'save_success'
+    else
+      render action: 'save_error'
     end
   end
+    
+  def dialog_header
+    render partial: 'dialog_header'
+  end
+
+  def current
+    s = []
+    if (current_schicht)
+      s[0] = current_schicht.datum.strftime(FORMAT_SCHICHT_DATUM) + " " + current_schicht.uhrzeit_beginn + "-" + current_schicht.uhrzeit_ende
+    end
+    respond_to do |format|
+      format.json {render json: s}
+    end
+  end
+    
 
   # DELETE /schichts/1
   # DELETE /schichts/1.json
@@ -71,13 +97,13 @@ class SchichtsController < ApplicationController
         n = DateTime.now
         ts_von = DateTime.new(n.year - 1, n.month, n.day)
       end
-      @schichts = Schicht.where(:objekt_id => objekt_id).where("updated_at > ? and updated_at <= ?", ts_von, ts_bis)
+      @schichts = Schicht.where(:objekt_id => objekt_id).where("updated_at > ? and updated_at <= ?", ts_von, ts_bis).where(beendet: true)
     end
 
     def prepare_schichts_json
         n = DateTime.now
         ts_von = DateTime.new(n.year - 1, n.month, n.day)
-        @schichts = Schicht.eager_load(:benutzer).where(:objekt_id => current_objekt.id).where("schichts.updated_at > ?", ts_von).order(datum: :desc, uhrzeit_beginn: :desc)
+        @schichts = Schicht.includes(:benutzer).eager_load("wachbuch_eintrag").where(:objekt_id => current_objekt.id).where("schichts.updated_at > ?", ts_von).where("beendet = ? or benutzer_id=?",true, current_user.id).order(datum: :desc, uhrzeit_beginn: :desc)
     end
   
     def parseSchicht(sNode)
@@ -86,7 +112,8 @@ class SchichtsController < ApplicationController
         benutzer_id: sNode.xpath('benutzer_id').text.to_s, 
         datum: sNode.xpath('datum').text.to_s, 
         uhrzeit_beginn: sNode.xpath('uhrzeit_beginn').text.to_s, 
-        uhrzeit_ende: sNode.xpath('uhrzeit_ende').text.to_s
+        uhrzeit_ende: sNode.xpath('uhrzeit_ende').text.to_s,
+        beendet: true
       })
       sNode.xpath('rapports/rapport').each do |rNode|
         r = Rapport.new({

@@ -1,4 +1,3 @@
 json.array!(@kontrollanrufs) do |kontrollanruf|
-  json.extract! kontrollanruf, :id, :wachbuch_eintrag_id, :uhrzeit, :objekt, :bemerkung, :position
-  json.url kontrollanruf_url(kontrollanruf, format: :json)
+  json.array! [kontrollanruf.uhrzeit, kontrollanruf.bemerkung, kontrollanruf_path_for_list(kontrollanruf)]
 end

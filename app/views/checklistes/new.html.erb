@@ -1,5 +1,8 @@
-<h1>New checkliste</h1>
+<h1>Vorlage wählen</h1>
 
-<%= render 'form' %>
+<%= select_tag "vorlage_id", options_for_select(@vorlages.collect{|v| [v.bezeichner, v.id]}), {size: '7', class: 'checklisten_vorlage_list'} %>
+<div class="actions">
+  <button onclick="close_choose_vorlage()">Abbrechen</button>
+  <button onclick="choose_vorlage($('#vorlage_id').val())">Neue Checkliste</button>
+</div>
 
-<%= link_to 'Back', checklistes_path %>

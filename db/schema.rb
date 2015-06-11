@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140626201248) do
+ActiveRecord::Schema.define(version: 20150611125630) do
 
   create_table "benutzers", force: true do |t|
     t.string   "login"
@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 20140626201248) do
   create_table "checklisten_vorlages", force: true do |t|
     t.integer  "objekt_id"
     t.string   "bezeichner"
-    t.integer  "version",    default: 1, null: false
-    t.boolean  "inaktiv"
+    t.integer  "version",    default: 1,     null: false
+    t.boolean  "inaktiv",    default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -178,8 +178,10 @@ ActiveRecord::Schema.define(version: 20140626201248) do
     t.string   "uhrzeit_ende"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "beendet",        default: false, null: false
   end
 
+  add_index "schichts", ["beendet"], name: "index_schichts_on_beendet"
   add_index "schichts", ["benutzer_id"], name: "index_schichts_on_benutzer_id"
   add_index "schichts", ["objekt_id"], name: "index_schichts_on_objekt_id"
 
@@ -187,9 +189,9 @@ ActiveRecord::Schema.define(version: 20140626201248) do
     t.integer  "schicht_id"
     t.text     "besonderheiten"
     t.text     "schaeden"
-    t.boolean  "ausruestung_vollzaehlig", default: false, null: false
-    t.boolean  "ausruestung_funktion",    default: false, null: false
-    t.boolean  "schluessel_vollzaehlig",  default: false, null: false
+    t.boolean  "ausruestung_vollzaehlig"
+    t.boolean  "ausruestung_funktion"
+    t.boolean  "schluessel_vollzaehlig"
     t.string   "schluessel_bemerkung"
     t.datetime "created_at"
     t.datetime "updated_at"

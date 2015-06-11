@@ -3,8 +3,13 @@ ElwakBackend::Application.routes.draw do
   get "main/index"
   resources :checklisten_vorlages
 
+  get "finish_schicht(.:format)" => "schichts#finish"
+  get "schichts/current(.:format)" => "schichts#current"
+  get "schichts/:id/dialog_header" => "schichts#dialog_header", as: 'dialog_header'
   resources :schichts
   resources :wachbuch_eintrags
+  resources :kontrollanrufs
+  resources :kontrollgangs
   resources :rapports
   resources :checklistes
 

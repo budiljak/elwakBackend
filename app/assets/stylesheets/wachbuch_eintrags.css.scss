@@ -1,3 +1,82 @@
 // Place all the styles related to the WachbuchEintrags controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.ausruestung_schluessel {
+  width:100%;
+  td {
+    width:50%;
+    vertical-align: center;
+  }
+  div {
+    padding: 2px 4px;
+    height: 25px;
+  }
+  #wachbuch_eintrag_schluessel_bemerkung {
+    float: right;
+    margin: 0;
+    width: 250px;
+  }
+}
+
+.list_container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: 1px solid lightgray;
+}
+
+#kontrollanrufs_kontrollgangs {
+  width: 100%;
+
+  .list_container {
+    height: 7em;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  >tbody>tr>td {
+    padding: 0 2em 0 0;
+  }
+
+  .buttons_bar td {
+    text-align: center;
+  }
+}
+
+#kontrollanrufs_list , #kontrollgangs_list {
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
+
+  thead {
+    background-color: lightgray;
+  }
+  
+  th:nth-child(1) {
+    width: 4em;
+  }
+
+  td, th {
+    border: 0;
+    padding: 1px 7px;
+    height: 15px;
+    text-align: left;
+  }
+
+  tbody tr {
+    cursor: pointer;
+  }
+
+  td {
+    white-space: nowrap;
+    overflow-x: hidden;
+  }
+  .ui-selected {
+    background-color: blue;
+    color: white;
+  }
+}
+
+

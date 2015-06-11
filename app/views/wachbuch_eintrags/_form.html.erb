@@ -1,7 +1,10 @@
-<%= form_for(@wachbuch_eintrag) do |f| %>
+<% readonly ||= false %>
+<div class="details_dialog">
+  <%= render partial: 'schichts/dialog_header', :locals => {:schicht => (@wachbuch_eintrag.schicht)} %>
+<%= form_for(@wachbuch_eintrag, remote: true) do |f| %>
   <% if @wachbuch_eintrag.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@wachbuch_eintrag.errors.count, "error") %> prohibited this wachbuch_eintrag from being saved:</h2>
+      <h2>Es gab <%= @wachbuch_eintrag.errors.count %> Fehler beim Speichern:</h2>
 
       <ul>
       <% @wachbuch_eintrag.errors.full_messages.each do |msg| %>
@@ -12,34 +15,108 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :schicht_id %><br>
-    <%= f.text_field :schicht_id %>
+    <table class="ausruestung_schluessel"><tr>
+        <td width="50%">
+          Ausrüstung: <br />
+          <div style="border: 1px solid gray;">
+            vollzählig:
+            <span class="ja_nein_frame">
+              <%= f.radio_button :ausruestung_vollzaehlig, true, disabled: readonly %>
+              <%= f.label :ausruestung_vollzaehlig_true, "Ja" %>
+              <%= f.radio_button :ausruestung_vollzaehlig, false, disabled: readonly %>
+              <%= f.label :ausruestung_vollzaehlig_false, "Nein" %>
+              <%= radio_button_tag 'wachbuch_eintrag[ausruestung_vollzaehlig]', nil, @wachbuch_eintrag.ausruestung_vollzaehlig == nil, class: 'hidden', disabled: readonly %>
+            </span>
+            Funktion:
+            <span class="ja_nein_frame">
+            <%= f.radio_button :ausruestung_funktion, true, disabled: readonly %>
+            <%= f.label :ausruestung_funktion_true, "Ja" %>
+            <%= f.radio_button :ausruestung_funktion, false, disabled: readonly %>
+            <%= f.label :ausruestung_funktion_false, "Nein" %>
+            <%= radio_button_tag 'wachbuch_eintrag[ausruestung_funktion]', nil, @wachbuch_eintrag.ausruestung_funktion == nil, class: 'hidden', disabled: readonly %>
+            </span>
+          </div>
+        </td>
+        <td>
+          Schlüssel vollzählig: <br />
+          <div style="border: 1px solid gray;">
+            <span class="ja_nein_frame">
+              <%= f.radio_button :schluessel_vollzaehlig, true, disabled: readonly %>
+              <%= f.label :schluessel_vollzaehlig_true, "Ja" %>
+              <%= f.radio_button :schluessel_vollzaehlig, false, disabled: readonly %>
+              <%= f.label :schluessel_vollzaehlig_false, "Nein" %>
+              <%= radio_button_tag 'wachbuch_eintrag[schluessel_vollzaehlig]', nil, @wachbuch_eintrag.schluessel_vollzaehlig == nil, class: 'hidden', disabled: readonly %>
+            </span>
+            <%= f.text_field :schluessel_bemerkung, readonly: readonly %>
+        </td>
+    </tr></table>
   </div>
   <div class="field">
-    <%= f.label :besonderheiten %><br>
-    <%= f.text_area :besonderheiten %>
+    <%= f.label :besonderheiten, "Besonderheiten bei Wachübernahme:" %><br>
+    <%= f.text_area :besonderheiten, readonly: readonly %>
   </div>
   <div class="field">
-    <%= f.label :schaeden %><br>
-    <%= f.text_area :schaeden %>
+    <%= f.label :schaeden, "Schäden im Objekt:" %><br>
+    <%= f.text_area :schaeden, readonly: readonly %>
   </div>
-  <div class="field">
-    <%= f.label :ausruestung_vollzaehlig %><br>
-    <%= f.check_box :ausruestung_vollzaehlig %>
-  </div>
-  <div class="field">
-    <%= f.label :ausruestung_funktion %><br>
-    <%= f.check_box :ausruestung_funktion %>
-  </div>
-  <div class="field">
-    <%= f.label :schluessel_vollzaehlig %><br>
-    <%= f.check_box :schluessel_vollzaehlig %>
-  </div>
-  <div class="field">
-    <%= f.label :schluessel_bemerkung %><br>
-    <%= f.text_field :schluessel_bemerkung %>
-  </div>
+  <table id="kontrollanrufs_kontrollgangs"><tr>
+      <td>
+        Kontrollanrufe:
+        <div class="list_container">
+          <table id="kontrollanrufs_list">
+            <thead><tr>
+                <th>Uhrzeit</th>
+                <th>Bemerkung</th>
+            </tr></thead>
+            <tbody id="kontrollanrufs_list_body">
+            </tbody>
+          </table>
+        </div>
+        <table class="buttons_bar"><tr>
+            <td>
+              <%= button_tag "Neu", type: 'button', id: 'kontrollanruf_neu', disabled: readonly %>
+            </td><td>
+              <%= button_tag "Anzeigen", type: 'button', id: 'kontrollanruf_anzeigen' %>
+            </td><td>
+              <%= button_tag "Löschen", type: 'button', id: 'kontrollanruf_loeschen', disabled: readonly %>
+            </td>
+        </tr></table>
+      </td><td>
+        Kontrollgänge:
+        <div class="list_container">
+          <table id="kontrollgangs_list">
+            <thead><tr>
+                <th>Uhrzeit</th>
+                <th>Bemerkung</th>
+            </tr></thead>
+            <tbody id="kontrollgangs_list_body">
+            </tbody>
+          </table>
+        </div>
+        <table class="buttons_bar"><tr>
+            <td>
+              <%= button_tag "Neu", type: 'button', id: 'kontrollgang_neu', disabled: readonly %>
+            </td><td>
+              <%= button_tag "Anzeigen", type: 'button', id: 'kontrollgang_anzeigen' %>
+            </td><td>
+              <%= button_tag "Löschen", type: 'button', id: 'kontrollgang_loeschen', disabled: readonly %>
+            </td>
+        </tr></table>
+      </td>
+  </tr></table>
   <div class="actions">
-    <%= f.submit %>
+    <% if readonly %>
+      <button type="button" onclick="close_wachbuch_eintrag()">Schließen</button>
+    <% else %>
+      <button type="button" onclick="close_wachbuch_eintrag()">Abbrechen</button>
+      <%= f.submit "Speichern" %>
+    <% end %>
   </div>
 <% end %>
+</div>
+<script type="text/javascript">
+<!--
+  var wachbuch_eintrag_id = <%= @wachbuch_eintrag.id %>;
+  init_wb_dialog();
+-->
+</script>

@@ -1,4 +1,3 @@
 json.array!(@kontrollgangs) do |kontrollgang|
-  json.extract! kontrollgang, :id, :wachbuch_eintrag_id, :uhrzeit, :bemerkung, :position
-  json.url kontrollgang_url(kontrollgang, format: :json)
+  json.array! [kontrollgang.uhrzeit, kontrollgang.bemerkung, kontrollgang_path_for_list(kontrollgang)]
 end

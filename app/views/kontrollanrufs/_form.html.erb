@@ -1,7 +1,9 @@
-<%= form_for(@kontrollanruf) do |f| %>
+<% readonly ||= false %>
+<div class="details_dialog">
+<%= form_for(@kontrollanruf, remote: true) do |f| %>
   <% if @kontrollanruf.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@kontrollanruf.errors.count, "error") %> prohibited this kontrollanruf from being saved:</h2>
+      <h2>Es gab <%= @kontrollanruf.errors.count %> Fehler beim Speichern:</h2>
 
       <ul>
       <% @kontrollanruf.errors.full_messages.each do |msg| %>
@@ -11,27 +13,24 @@
     </div>
   <% end %>
 
+  <% if !@kontrollanruf.persisted? %>
+    <%= f.hidden_field :wachbuch_eintrag_id %>
+  <% end %>
   <div class="field">
-    <%= f.label :wachbuch_eintrag_id %><br>
-    <%= f.text_field :wachbuch_eintrag_id %>
+    <%= f.label :uhrzeit, "Uhrzeit: " %><br>
+    <%= f.text_field :uhrzeit, class: 'time_input', readonly: readonly %>
   </div>
   <div class="field">
-    <%= f.label :uhrzeit %><br>
-    <%= f.datetime_select :uhrzeit %>
-  </div>
-  <div class="field">
-    <%= f.label :objekt %><br>
-    <%= f.text_field :objekt %>
-  </div>
-  <div class="field">
-    <%= f.label :bemerkung %><br>
-    <%= f.text_area :bemerkung %>
-  </div>
-  <div class="field">
-    <%= f.label :position %><br>
-    <%= f.number_field :position %>
+    <%= f.label :bemerkung, "Bemerkung: " %><br>
+    <%= f.text_area :bemerkung, rows: 5, readonly: readonly %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <% if readonly %>
+      <button onclick="close_kontrollanruf()">Schließen</button>
+    <% else %>
+      <button onclick="close_kontrollanruf()">Abbrechen</button>
+      <%= f.submit "Speichern" %>
+    <% end %>
   </div>
 <% end %>
+</div>

@@ -6,14 +6,15 @@
   float: left;
   width: 45%;
   height: 350px;
+  border: 1px solid lightgray;
   overflow-y: scroll;
   overflow-x: auto;
 }
 
 #infos_list {
   width: 100%;
-  border: 1px solid lightgray;
   border-spacing: 0;
+  table-layout: fixed;
 }
 
 #infos_list thead {
@@ -24,6 +25,8 @@
   border: 0;
   padding: 2px 7px;
   text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .info_art_background_0 {

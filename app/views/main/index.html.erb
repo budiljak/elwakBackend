@@ -15,10 +15,10 @@
         <tr>
           <th>Aktuelle Schicht</th>
           <td>
-            <div class="like_input">&nbsp;</div>
+            <div id="current_schicht" class="like_input">&nbsp;</div>
           </td>
           <td>
-            <input type="button" onclick="not_yet()" id="btn_schicht" value="Schicht beginnen" />
+            <button type="button" id="btn_schicht">Schicht beginnen</button>
           </td>
         </tr>
         <tr>
@@ -78,12 +78,12 @@
         </tr>
         <tr height="40">
           <td>
-            <button onclick="not_yet()" class="big_button">Wachbucheintrag bearbeiten</button>
+            <button onclick="open_wachbuch_eintrag()" class="big_button">Wachbucheintrag bearbeiten</button>
           </td>
           <td>
             <table><tr>
                 <td width="70%">
-                  <button onclick="not_yet()" class="big_button">Rapport</button>
+                  <button onclick="open_rapport()" class="big_button">Rapport</button>
                 </td>
                 <td>
                   <button onclick="not_yet()">Löschen</button>
@@ -93,7 +93,7 @@
           <td>
             <table><tr>
                 <td width="70%">
-                  <button onclick="not_yet()" class="big_button">Checkliste</button>
+                  <button onclick="open_checkliste()" class="big_button">Checkliste</button>
                 </td>
                 <td>
                   <button onclick="not_yet()">Löschen</button>

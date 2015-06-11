@@ -1,7 +1,10 @@
-<%= form_for(@checkliste) do |f| %>
+<% readonly ||= false %>
+<div class="details_dialog">
+  <%= render partial: 'schichts/dialog_header', :locals => {:schicht => (@checkliste.schicht)} %>
+<%= form_for(@checkliste, remote: true) do |f| %>
   <% if @checkliste.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@checkliste.errors.count, "error") %> prohibited this checkliste from being saved:</h2>
+      <h2>Es gab <%= @checkliste.errors.count %> Fehler beim Speichern:</h2>
 
       <ul>
       <% @checkliste.errors.full_messages.each do |msg| %>
@@ -11,23 +14,71 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :checklisten_vorlage_id %><br>
-    <%= f.text_field :checklisten_vorlage_id %>
+  <%= hidden_field_tag :vorlage_id, @checkliste.checklisten_vorlage.id %>
+  <div id="checkliste_header_fields">
+    <table>
+      <tr>
+        <th>Vorlage:</th><td><div class="like_input"><%= @checkliste.checklisten_vorlage.bezeichner %></div></td>
+        <th>Version:</th><td><div class="like_input"><%= @checkliste.checklisten_vorlage.version %></div></td>
+      </tr>
+      <tr>
+        <th><%= f.label :uhrzeit, "Uhrzeit:" %></th><td><%= f.text_field :uhrzeit, class: 'time_input', readonly: readonly %></td>
+      </tr>
+    </table>
   </div>
-  <div class="field">
-    <%= f.label :schicht_id %><br>
-    <%= f.text_field :schicht_id %>
-  </div>
-  <div class="field">
-    <%= f.label :uhrzeit %><br>
-    <%= f.datetime_select :uhrzeit %>
-  </div>
-  <div class="field">
-    <%= f.label :position %><br>
-    <%= f.number_field :position %>
-  </div>
+  <table id="checkliste_entries">
+    <thead><tr>
+        <th>Eintrag:</th><th>Was:</th><th>Wann:</th><th></th>
+    </tr></thead>
+    <tbody>
+      <% @checkliste.checklisten_werts.each do |checklisten_wert| %>
+        <%= f.fields_for :checklisten_werts, checklisten_wert, include_id: false do |cw_fields| %>
+          <tr>
+            <td>
+              <% if checklisten_wert.persisted? %>
+                <%= cw_fields.hidden_field :id %>
+              <% else %>
+                <%= cw_fields.hidden_field :checklisten_eintrag_id %>
+              <% end %>
+              <%= checklisten_wert.checklisten_eintrag.bezeichner %>
+            </td>
+            <td><%= checklisten_wert.checklisten_eintrag.was %></td>
+            <td><%= checklisten_wert.checklisten_eintrag.wann %></td>
+            <% if checklisten_wert.is_ja_nein? %>
+              <td>
+                <span class="ja_nein_frame">
+                  <%= cw_fields.radio_button :inhalt, 'ja', disabled: readonly %>
+                  <%= cw_fields.label :inhalt_ja, "Ja" %>
+                  <%= cw_fields.radio_button :inhalt, 'nein', disabled: readonly %>
+                  <%= cw_fields.label :inhalt_nein, "Nein" %>
+                  <%= radio_button_tag "checkliste[checklisten_werts_attributes][" + cw_fields.index.to_s + "][inhalt]", nil, (checklisten_wert.inhalt == nil || checklisten_wert.inhalt == ""), class: 'hidden', disabled: readonly %>
+                </span>
+              </td>
+            <% elsif checklisten_wert.is_datum? %>
+              <td><%= cw_fields.text_field :inhalt, class: 'date_input', readonly: readonly %></td>
+            <% elsif checklisten_wert.is_uhrzeit? %>
+              <td><%= cw_fields.text_field :inhalt, class: 'time_input', readonly: readonly %></td>
+            <% elsif checklisten_wert.is_freitext? %>
+              <td><%= cw_fields.text_area :inhalt, readonly: readonly %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
   <div class="actions">
-    <%= f.submit %>
+    <% if readonly %>
+      <button onclick="close_checkliste()">Schließen</button>
+    <% else %>
+      <button onclick="close_checkliste()">Abbrechen</button>
+      <%= f.submit "Speichern" %>
+    <% end %>
   </div>
 <% end %>
+</div>
+<script type="text/javascript">
+<!--
+  init_checkliste_dialog();
+-->
+</script>
+

@@ -28,3 +28,4 @@ CHECKLISTE_WERT_NULL = ""
 # Datum_Uhzeit-Format
 FORMAT_INFO_DATUM = "%d.%m.%Y %H:%M"
 FORMAT_SCHICHT_DATUM = "%d.%m.%Y"
+FORMAT_UHRZEIT = "%H:%M"

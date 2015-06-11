@@ -35,6 +35,11 @@ div {
   }
 }
 
+div {
+  &.actions {
+    float:right;
+  }
+}
 #notice {
   color: green;
 }

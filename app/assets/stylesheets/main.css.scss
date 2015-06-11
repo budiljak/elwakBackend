@@ -3,3 +3,168 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 //= require jquery-ui/tabs
+//= require jquery-ui/selectable
+//= require jquery-ui/resizable
+//= require jquery-ui/dialog
+//= require jquery-ui/datepicker
+
+html {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-image: url("/images/background.jpg");
+  min-width: 950px;
+  min-height: 650px;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.alert {
+  padding: 4px 35px 4px 14px;
+  margin-bottom: 15px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  border: 1px solid #fbeed5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}
+.alert_info {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #468847;
+}
+.alert-danger {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+}
+
+.like_input {
+  background-color: white;
+  border: 1px solid lightgray;
+  min-width: 5em;
+  padding: 2px;
+}
+
+span.like_input {
+  display: inline-block;
+  margin-left: 2px;
+}
+
+#layout_body button.normal_button {
+  font-size: 12pt;
+  font-weight: normal;
+  line-height: 15px;
+}
+
+#layout_body button.big_button {
+  font-size: 14pt;
+  font-weight: bold;
+  line-height: 23px;
+}
+
+.time_input {
+  width: 4em;
+}
+
+.date_input {
+  width: 6em;
+}
+
+span.ja_nein_frame {
+  background-color: #fafad2;
+  border: 1px solid black;
+  padding: 3px 5px;
+  margin: 2px 5px 2px 3px;
+  input {
+    margin: 4px 2px;
+    padding: 0;
+  }
+  &.ja {
+    background-color: #99ee99;
+  }
+  &.nein {
+    background-color: #cd5c5c;
+  }
+}
+
+/* Für modales Ajax-Warte-Icon */
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('/images/please_wait.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+body.loading {
+    overflow: hidden;   
+}
+
+body.loading .modal {
+    display: block;
+}
+
+/* ----------------------------------------  */
+
+.hidden {
+  display: none;
+}
+
+
+#main_parent {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+td > select, td > input {
+  width:95%
+}
+
+#main_all_headers {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  height: 110px;
+  background-image: url("/images/logo.jpg");
+  background-position: top left;
+  background-repeat: no-repeat;
+}
+
+#main_session_info {
+  padding:4px;
+  border: 1px solid black;
+}
+
+#main_session_info th {
+  text-align: left;
+  white-space: nowrap;
+  padding-left: 5px;
+  padding-right: 7px;
+}
+
+#main_tabs {
+  position: absolute;
+  top: 140px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+}
+

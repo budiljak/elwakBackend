@@ -1,0 +1,42 @@
+<table class="dialog_header"><tr>
+    <td width="50%">
+      <table>
+        <tr>
+          <th>
+            Objekt:
+          </th>
+          <td>
+            <%= schicht.objekt.bezeichner %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Wachmann:
+          </th>
+          <td>
+            <%= schicht.benutzer.nachname_vorname_kurz %>
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td width="50%">
+      <table>
+        <tr>
+          <th>
+            Datum:
+          </th>
+          <td>
+            <%= schicht.datum.strftime(FORMAT_SCHICHT_DATUM) %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Schichtzeit:
+          </th>
+          <td>
+            <%= schicht.schichtzeit %>
+          </td>
+        </tr>
+      </table>
+    </td>
+</tr></table>
