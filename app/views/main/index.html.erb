@@ -78,25 +78,25 @@
         </tr>
         <tr height="40">
           <td>
-            <button onclick="open_wachbuch_eintrag()" class="big_button">Wachbucheintrag bearbeiten</button>
+            <button type="button" onclick="open_wachbuch_eintrag()" class="big_button">Wachbucheintrag bearbeiten</button>
           </td>
           <td>
             <table><tr>
                 <td width="70%">
-                  <button onclick="open_rapport()" class="big_button">Rapport</button>
+                  <button type="button" onclick="open_rapport()" class="big_button">Rapport</button>
                 </td>
                 <td>
-                  <button onclick="not_yet()">Löschen</button>
+                  <button type="button" id="btn_delete_rapport" onclick="delete_rapport()">Löschen</button>
                 </td>
             </tr></table>
           </td>
           <td>
             <table><tr>
                 <td width="70%">
-                  <button onclick="open_checkliste()" class="big_button">Checkliste</button>
+                  <button type="button" onclick="open_checkliste()" class="big_button">Checkliste</button>
                 </td>
                 <td>
-                  <button onclick="not_yet()">Löschen</button>
+                  <button type="button" id="btn_delete_checkliste" onclick="delete_checkliste()">Löschen</button>
                 </td>
             </tr></table>
           </td>

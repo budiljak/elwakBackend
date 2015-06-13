@@ -9,7 +9,7 @@ function init_wb_dialog() {
     open_kontrollanruf();
   });
   $('#kontrollanruf_loeschen').click(function () {
-    not_yet();
+    delete_kontrollanruf();
   });
   $('#kontrollgang_neu').click(function () {
     open_kontrollgang('/kontrollgangs/new.html?wachbuch_eintrag_id=' + wachbuch_eintrag_id);
@@ -18,7 +18,7 @@ function init_wb_dialog() {
     open_kontrollgang();
   });
   $('#kontrollgang_loeschen').click(function () {
-    not_yet();
+    delete_kontrollgang();
   });
 }
 
@@ -32,6 +32,7 @@ function refresh_kontrollanrufs_list() {
       $.each(data, function (index, value) {
         var newRow = $("<tr><td>" + value[0] + "</td><td>" + value[1] + "</td></tr>");
         newRow.data('url', value[2]);
+        newRow.data('delete-path', value[3]);
         newRow.dblclick(function () {
           open_kontrollanruf();
         });
@@ -72,6 +73,23 @@ function close_kontrollanruf() {
   $("#kontrollanruf_dialog").dialog("destroy");
 }
 
+function delete_kontrollanruf() {
+  var selected = $("#kontrollanrufs_list_body .ui-selected");
+  if (!selected.length) {
+    alert("Bitte erst einen Kontrollanruf wählen!");
+    return;
+  }
+  var url = selected.data('delete-path');
+  if (!confirm("Wollen Sie diesen Kontrollanruf löschen?")) {
+    return;
+  }
+  $.ajax({
+    type: "DELETE", 
+    url: url,
+    dataType: "script"
+  });
+}
+
 function refresh_kontrollgangs_list() {
   $.ajax({
     type: "GET", 
@@ -82,6 +100,7 @@ function refresh_kontrollgangs_list() {
       $.each(data, function (index, value) {
         var newRow = $("<tr><td>" + value[0] + "</td><td>" + value[1] + "</td></tr>");
         newRow.data('url', value[2]);
+        newRow.data('delete-path', value[3]);
         newRow.dblclick(function () {
           open_kontrollgang();
         });
@@ -120,5 +139,22 @@ function open_kontrollgang(url) {
 
 function close_kontrollgang() {
   $("#kontrollgang_dialog").dialog("destroy");
+}
+
+function delete_kontrollgang() {
+  var selected = $("#kontrollgangs_list_body .ui-selected");
+  if (!selected.length) {
+    alert("Bitte erst einen Kontrollgang wählen!");
+    return;
+  }
+  var url = selected.data('delete-path');
+  if (!confirm("Wollen Sie diesen Kontrollgang löschen?")) {
+    return;
+  }
+  $.ajax({
+    type: "DELETE", 
+    url: url,
+    dataType: "script"
+  });
 }
 

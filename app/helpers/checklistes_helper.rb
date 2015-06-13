@@ -19,5 +19,13 @@ module ChecklistesHelper
     end
   end
     
+  def delete_checkliste_path_for_list(checkliste)
+    if checkliste.persisted? && current_schicht && checkliste.schicht.id == current_schicht.id
+        checkliste_path(checkliste, format: :js)
+    else
+      ""
+    end
+  end
+    
   
 end

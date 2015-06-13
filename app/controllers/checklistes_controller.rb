@@ -59,7 +59,7 @@ class ChecklistesController < ApplicationController
   def destroy
     @checkliste.destroy
     respond_to do |format|
-      format.json { head :no_content }
+      format.js { render action: 'delete_success' }
     end
   end
 

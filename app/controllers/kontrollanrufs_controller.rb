@@ -44,7 +44,7 @@ class KontrollanrufsController < ApplicationController
   def destroy
     @kontrollanruf.destroy
     respond_to do |format|
-      format.json { head :no_content }
+      format.js { render action: 'delete_success' }
     end
   end
 

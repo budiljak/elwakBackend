@@ -10,25 +10,27 @@
 
 
 $(function() {
-  $body = $("body");
-  $body.on({
-    ajaxStart: function() { $body.addClass("loading"); },
-    ajaxStop: function() { $body.removeClass("loading"); }
-  });
+  $(document).ajaxStart(function() {$("body").addClass("loading"); });
+  $(document).ajaxStop(function() {$("body").removeClass("loading"); });
   if ($("#main_tabs").length) {
     $( "#main_tabs" ).tabs();
     refresh_infos_list();
     refresh_current_schicht();
     refresh_schichts_list();
     $( "#list_schichts").click(function () {
-      refresh_rapports_list();
-      refresh_checklistes_list();
+      schicht_selected();
     });
     $("#list_schichts").dblclick(function () {
       open_wachbuch_eintrag();
     });
+    $( "#list_rapports").click(function () {
+      rapport_selected();
+    });
     $("#list_rapports").dblclick(function () {
       open_rapport();
+    });
+    $( "#list_checklistes").click(function () {
+      checkliste_selected();
     });
     $("#list_checklistes").dblclick(function () {
       open_checkliste();
@@ -136,18 +138,28 @@ function refresh_schichts_list() {
     url: "/schichts.json",
     dataType: "json",
     success: function (data) {
+      var schichtsList = $( "#list_schichts");
       $.each(data, function (index, value) {
         var newEntry = $("<option value=\"" + value[1] + "\">" + value[0] + "</option>");
         newEntry.data("wb-path", value[2]);
         if (value[2].contains("edit")) {
           newEntry.css('font-weight', 'bold');
         }
-        $( "#list_schichts").append(newEntry)
-      })
+        schichtsList.append(newEntry)
+      });
+      if (schichtsList.children().length != 0) {
+        schichtsList[0].selectedIndex = 0;
+        schicht_selected();
+      }
     }
 
   })
 }
+
+function schicht_selected() {
+  refresh_rapports_list();
+  refresh_checklistes_list();
+} 
 
 function refresh_rapports_list() {
   $( "#list_rapports").empty();
@@ -161,13 +173,24 @@ function refresh_rapports_list() {
     data: {schicht_id: schicht_id},
     dataType: "json",
     success: function (data) {
+      var rapportsList = $( "#list_rapports");
       $.each(data, function (index, value) {
         var newEntry = $("<option value=\"" + value[1] + "\">" + value[0] + "</option>");
-        $( "#list_rapports").append(newEntry)
-      })
+        newEntry.data("delete-path",  value[2]);
+        rapportsList.append(newEntry);
+      });
+      if (rapportsList.children().length != 0) {
+        rapportsList[0].selectedIndex = 0;
+        rapport_selected();
+      }
     }
 
   })
+}
+
+function rapport_selected() {
+  var selected = $("#list_rapports option:selected");
+  $("#btn_delete_rapport").attr('disabled', (selected.data("delete-path").length == 0));
 }
 
 function refresh_checklistes_list() {
@@ -182,13 +205,24 @@ function refresh_checklistes_list() {
     data: {schicht_id: schicht_id},
     dataType: "json",
     success: function (data) {
+      var checklistesList = $( "#list_checklistes");
       $.each(data, function (index, value) {
         var newEntry = $("<option value=\"" + value[1] + "\">" + value[0] + "</option>");
-        $( "#list_checklistes").append(newEntry)
-      })
+        newEntry.data("delete-path",  value[2]);
+        checklistesList.append(newEntry);
+      });
+      if (checklistesList.children().length != 0) {
+        checklistesList[0].selectedIndex = 0;
+        checkliste_selected();
+      }
     }
 
   })
+}
+
+function checkliste_selected() {
+  var selected = $("#list_checklistes option:selected");
+  $("#btn_delete_checkliste").attr('disabled', (selected.data("delete-path").length == 0));
 }
 
 function not_yet() {
@@ -229,6 +263,23 @@ function open_rapport() {
 
 function close_rapport() {
   $("#rapport_dialog").dialog("destroy");
+}
+
+function delete_rapport() {
+  var selected = $("#list_rapports option:selected");
+  if (!selected.length) {
+    alert("Bitte erst einen Rapport wählen!");
+    return;
+  }
+  var url = selected.data('delete-path');
+  if (!confirm("Wollen Sie diesen Rapport löschen?")) {
+    return;
+  }
+  $.ajax({
+    type: "DELETE", 
+    url: url,
+    dataType: "script"
+  });
 }
 
 function open_wachbuch_eintrag() {
@@ -324,6 +375,23 @@ function open_checkliste(vorlage_id) {
 
 function close_checkliste() {
   $("#checkliste_dialog").dialog("destroy");
+}
+
+function delete_checkliste() {
+  var selected = $("#list_checklistes option:selected");
+  if (!selected.length) {
+    alert("Bitte erst einen Checkliste wählen!");
+    return;
+  }
+  var url = selected.data('delete-path');
+  if (!confirm("Wollen Sie diesen Checkliste löschen?")) {
+    return;
+  }
+  $.ajax({
+    type: "DELETE", 
+    url: url,
+    dataType: "script"
+  });
 }
 
 function init_ja_nein_frames() {

@@ -20,5 +20,13 @@ module RapportsHelper
       new_rapport_path
     end
   end
+  
+  def delete_rapport_path_for_list(rapport)
+    if rapport.persisted? && current_schicht && rapport.schicht.id == current_schicht.id
+      rapport_path(rapport, format: :js)
+    else
+      ""
+    end
+  end
     
 end
