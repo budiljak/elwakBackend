@@ -56,9 +56,9 @@ class PdfDateiController < ApplicationController
 
   private
     def prepare_pdfs_html
-      arb_anw_allg = PdfDatei.where(art: PDF_DATEI_ART_ARB_ANW_ALLG).order(:name)
-      arb_anw_obj = PdfDatei.where(art: PDF_DATEI_ART_ARB_ANW_OBJ).where(objekt_id: current_objekt.id).order(:name)
-      sonst_obj = PdfDatei.where(art: PDF_DATEI_ART_SONST_OBJ).where(objekt_id: current_objekt.id).order(:name)
+      arb_anw_allg = PdfDatei.where(art: PDF_DATEI_ART_ARB_ANW_ALLG).where(geloescht: false).order(:name)
+      arb_anw_obj = PdfDatei.where(art: PDF_DATEI_ART_ARB_ANW_OBJ).where(geloescht: false).where(objekt_id: current_objekt.id).order(:name)
+      sonst_obj = PdfDatei.where(art: PDF_DATEI_ART_SONST_OBJ).where(geloescht: false).where(objekt_id: current_objekt.id).order(:name)
 
       @pdfs = []
       if arb_anw_allg.length > 0
@@ -89,9 +89,9 @@ class PdfDateiController < ApplicationController
     def prepare_pdfs_json
       art = params[:art]
       if art == PDF_DATEI_ART_ARB_ANW_ALLG
-        @pdfs = PdfDatei.where(art: art).order(:name)
+        @pdfs = PdfDatei.where(art: art).where(geloescht: false).order(:name)
       else
-        @pdfs = PdfDatei.where(art: art).where(objekt_id: current_objekt.id).order(:name)
+        @pdfs = PdfDatei.where(art: art).where(geloescht: false).where(objekt_id: current_objekt.id).order(:name)
       end
     end
 
