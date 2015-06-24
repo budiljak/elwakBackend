@@ -1,1 +1,1 @@
-$( '#session_objekt_id').html("<%= escape_javascript(options_for_select(@objekts.map{|o| [o.bezeichner, o.id]}.insert(0, ["Objekt auswählen", -1]))) %>");
+$( '#session_objekt_id').html("<%= escape_javascript(options_for_select(@objekts.map{|o| [o.bezeichner, o.id]}.insert(0, ["Objekt auswählen", -1]), selected: cookies["last_objekt_id"])) %>");

@@ -19,11 +19,12 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = Benutzer.find_by(login: params[:session][:login].downcase)
+    login = params[:session][:login]
+    objekt_id = params[:session][:objekt_id]
+    user = Benutzer.find_by(login: login.downcase)
     if user && user.authenticate(params[:session][:passwort])
-      objekt_id = params[:session][:objekt_id]
       if !objekt_id || objekt_id == "-1"
-        flash.now[:danger] = 'Bitte das Objekt auswählen!'
+        flash.now[:danger] = 'Bitte ein Objekt auswählen!'
         render 'new'
       else
         if user.typ != VERWALTER && !ObjektZuordnung.exists?({benutzer_id: user.id,  objekt_id: objekt_id})
@@ -31,12 +32,14 @@ class SessionsController < ApplicationController
           render 'new'
         else
           log_in user, objekt_id
+          cookies.permanent[:last_login] = login
+          cookies.permanent[:last_objekt_id] = objekt_id
           redirect_to main_index_path
         end
       end
     else
       flash.now[:danger] = 'Login / Passwort ungültig!'
-      render 'new'
+      render 'new', locals: {login: login}
     end
   end
 

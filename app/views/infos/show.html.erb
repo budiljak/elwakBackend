@@ -10,12 +10,23 @@
 
 <p>
   <strong>Nachricht:</strong>
-  <div style="height: 10em; overflow: auto;" class="like_input"><%= @info.text %></div>
+  <pre style="height: 10em; overflow: auto;" class="like_input"><%= @info.text %></pre>
 </p>
 
-<p>
-  <strong>Dokument:</strong>
-  <span style="width: 60%" class="like_input"><%= if @info.datei && @info.datei.length > 0 then @info.datei else "&nbsp;".html_safe end %></span>
-    <button onclick="not_yet()">Dokument lesen</button>
-</p>
+<div>
+  <div class="fill_remaining_header"> <strong>Dokument:</strong></div>
+  <div class="fill_remaining_footer">
+    <% if (@info.has_datei? && ((@info.datei_art == PDF_DATEI_ART_ARB_ANW_ALLG && current_user.typ != KUNDE) || @info.datei_objekt_id == current_objekt.id)) %>
+      <% name = @info.dateiname %>
+      <% art = @info.datei_art %>
+      <% mark_read_path = (@ie.gelesen)?'':mark_info_read_path(@info) %>
+      <%= button_tag "Dokument lesen", {type: 'button', onclick: "readDocument('#{name}', '#{art}', '#{mark_read_path}')"} %>
+    <% else %>
+      <%= button_tag "Dokument lesen", {type: 'button', disabled: true } %>
+    <% end %>
+  </div>
+  <div class="fill_remaining_content">
+    <span class="like_input"><%= if @info.has_datei? then @info.dateiname_mit_objekt else "&nbsp;".html_safe end %></span>
+  </div>
+</div>
 

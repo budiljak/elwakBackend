@@ -14,6 +14,10 @@ class Benutzer < ActiveRecord::Base
     passwort == password
   end
 
+  def nachname_vorname
+    nachname + (vorname && vorname.length > 0?", " + vorname : "")
+  end
+
   def nachname_vorname_kurz
     nachname + (vorname && vorname.length > 0?", " + vorname[0]:"")
   end

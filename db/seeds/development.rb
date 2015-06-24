@@ -14,11 +14,41 @@ require 'time'
 objekts = Objekt.create([{bezeichner:"Objekt 1"}, {bezeichner:"Objekt 2"}])
 benutzers = Benutzer.create([{login:'admin', passwort:'1234', vorname:"Der große", nachname:"Admin", typ:VERWALTER}, {login:'kriecher', passwort:'1234', vorname:"Herbert", nachname:"Kriecher", typ:MITARBEITER, objekts:objekts}, {login:'huber', passwort:'12345', vorname:"Werner", nachname:"Huber", typ:MITARBEITER, objekts:[objekts.first]}, {login:'kunde', passwort:'123456', vorname:"Konrad", nachname:"Kunde", typ:KUNDE, objekts:[objekts.last]}])
 
+checklisten_vorlages = ChecklistenVorlage.create([
+  {bezeichner: "liste1", objekt: objekts[0]},
+  {bezeichner: "liste2", objekt: objekts[0]}
+])
+ChecklistenEintrag.create([
+  {checklisten_vorlage: checklisten_vorlages[0], bezeichner: "eintrag1", was: "was1", wann: "wann1", typ: CHECKLISTE_TYP_JA_NEIN, position: 1},
+  {checklisten_vorlage: checklisten_vorlages[0], bezeichner: "eintrag2", was: "was2", wann: "wann2", typ: CHECKLISTE_TYP_DATUM, position: 2},
+  {checklisten_vorlage: checklisten_vorlages[0], bezeichner: "eintrag3", was: "was3", wann: "wann3", typ: CHECKLISTE_TYP_UHRZEIT, position: 3},
+  {checklisten_vorlage: checklisten_vorlages[0], bezeichner: "eintrag4", was: "was4", wann: "wann4", typ: CHECKLISTE_TYP_FREITEXT, position: 4},
+  {checklisten_vorlage: checklisten_vorlages[1], bezeichner: "eintrag_test1", was: "was_test1", wann: "wann_test1", typ: CHECKLISTE_TYP_JA_NEIN, position: 1},
+  {checklisten_vorlage: checklisten_vorlages[1], bezeichner: "eintrag_test2", was: "was_test2", wann: "wann_test2 mit ein bisschen mehr text zum testen... und einem laaaaaaaaaaaaaaaaaaaaaaaaaaaaaannnnnnnnnnnnnnnnggggggggggggggeeeemmmmmmm Wort", typ: CHECKLISTE_TYP_DATUM, position: 2}
+]) 
+
+PdfDatei.create([
+  {art: 1, name: "AllgArbeitsanw1.pdf", datei: File.open(File.join(Rails.root, "db/seeds/testPdfs/arbAllg/AllgArbeitsanw1.pdf"))},
+  {art: 1, name: "AllgArbeitsanw2.pdf", datei: File.open(File.join(Rails.root, "db/seeds/testPdfs/arbAllg/AllgArbeitsanw2.pdf"))},
+  {art: 1, name: "AllgArbeitsanw3.pdf", datei: File.open(File.join(Rails.root, "db/seeds/testPdfs/arbAllg/AllgArbeitsanw3.pdf"))}
+])
+
+objekts.each do |o|
+  PdfDatei.create([
+    {objekt_id: o.id, art: 2, name: "ObjArbeitsanw1.pdf", datei: File.open(File.join(Rails.root, "db/seeds/testPdfs/arbObj/ObjArbeitsanw1.pdf"))},
+    {objekt_id: o.id, art: 2, name: "ObjArbeitsanw2.pdf", datei: File.open(File.join(Rails.root, "db/seeds/testPdfs/arbObj/ObjArbeitsanw2.pdf"))},
+    {objekt_id: o.id, art: 2, name: "ObjArbeitsanw3.pdf", datei: File.open(File.join(Rails.root, "db/seeds/testPdfs/arbObj/ObjArbeitsanw3.pdf"))},
+    {objekt_id: o.id, art: 3, name: "ObjSonstiges1.pdf", datei: File.open(File.join(Rails.root, "db/seeds/testPdfs/sonstObj/ObjSonstiges1.pdf"))},
+    {objekt_id: o.id, art: 3, name: "ObjSonstiges2.pdf", datei: File.open(File.join(Rails.root, "db/seeds/testPdfs/sonstObj/ObjSonstiges2.pdf"))},
+    {objekt_id: o.id, art: 3, name: "ObjSonstiges3.pdf", datei: File.open(File.join(Rails.root, "db/seeds/testPdfs/sonstObj/ObjSonstiges3.pdf"))}
+  ])
+end
+
 tag = DateTime.new(1.year.ago.year, 1.year.ago.month, 1.year.ago.day)
 while tag < DateTime.now do
   puts "tag: " + tag.to_s
   infos = Info.create([
-    {benutzer_id: benutzers[0].id, art: 3, datum_uhrzeit: tag + 1.hours, betreff:"Neue Datei für Objekt 1", text:"Für Objekt 1 gibt's eine neue Datei!", datei: "Objekt1\\Sonstiges\\objSonstiges2.pdf"},
+    {benutzer_id: benutzers[0].id, art: 3, datum_uhrzeit: tag + 1.hours, betreff:"Neue Datei für Objekt 1", text:"Für Objekt 1 gibt's eine neue Datei!", datei: "Objekt1\\Sonstiges\\ObjSonstiges2.pdf"},
     {benutzer_id: benutzers[0].id, art: 4, datum_uhrzeit: tag + 4.hours, betreff:"WICHTIG: Heute kommt der Chef!", text:"Der Chef kommt heute zu Besuch!"},
     {benutzer_id: benutzers[1].id, art: 1, datum_uhrzeit: tag + 13.hours, betreff:"Mittagessen", text:"Dies ist eine persönliche Nachricht!"},
     {benutzer_id: benutzers[1].id, art: 0, datum_uhrzeit: tag + 15.hours, betreff:"Irgendwas", text:"Irgendeine Nachricht"},
@@ -31,22 +61,10 @@ while tag < DateTime.now do
     end
   end
   schichts = Schicht.create([
-    {objekt: objekts[0], benutzer: benutzers[1], datum: tag, uhrzeit_beginn: (tag + 2.hours).strftime("%H:%M"), uhrzeit_ende: (tag + 10.hours).strftime("%H:%M")}, 
-    {objekt: objekts[0], benutzer: benutzers[2], datum: tag, uhrzeit_beginn: (tag + 10.hours).strftime("%H:%M"), uhrzeit_ende: (tag + 18.hours).strftime("%H:%M")}, 
-    {objekt: objekts[0], benutzer: benutzers[1], datum: tag, uhrzeit_beginn: (tag + 18.hours).strftime("%H:%M"), uhrzeit_ende: (tag + 26.hours).strftime("%H:%M")}
+    {objekt: objekts[0], benutzer: benutzers[1], datum: tag, uhrzeit_beginn: (tag + 2.hours).strftime("%H:%M"), uhrzeit_ende: (tag + 10.hours).strftime("%H:%M"), beendet: true}, 
+    {objekt: objekts[0], benutzer: benutzers[2], datum: tag, uhrzeit_beginn: (tag + 10.hours).strftime("%H:%M"), uhrzeit_ende: (tag + 18.hours).strftime("%H:%M"), beendet: true}, 
+    {objekt: objekts[0], benutzer: benutzers[1], datum: tag, uhrzeit_beginn: (tag + 18.hours).strftime("%H:%M"), uhrzeit_ende: (tag + 26.hours).strftime("%H:%M"), beendet: true}
   ])
-  checklisten_vorlages = ChecklistenVorlage.create([
-    {bezeichner: "liste1", objekt: objekts[0]},
-    {bezeichner: "liste2", objekt: objekts[0]}
-  ])
-  ChecklistenEintrag.create([
-    {checklisten_vorlage: checklisten_vorlages[0], bezeichner: "eintrag1", was: "was1", wann: "wann1", typ: CHECKLISTE_TYP_JA_NEIN, position: 1},
-    {checklisten_vorlage: checklisten_vorlages[0], bezeichner: "eintrag2", was: "was2", wann: "wann2", typ: CHECKLISTE_TYP_DATUM, position: 2},
-    {checklisten_vorlage: checklisten_vorlages[0], bezeichner: "eintrag3", was: "was3", wann: "wann3", typ: CHECKLISTE_TYP_UHRZEIT, position: 3},
-    {checklisten_vorlage: checklisten_vorlages[0], bezeichner: "eintrag4", was: "was4", wann: "wann4", typ: CHECKLISTE_TYP_FREITEXT, position: 4},
-    {checklisten_vorlage: checklisten_vorlages[1], bezeichner: "eintrag_test1", was: "was_test1", wann: "wann_test1", typ: CHECKLISTE_TYP_JA_NEIN, position: 1},
-    {checklisten_vorlage: checklisten_vorlages[1], bezeichner: "eintrag_test2", was: "was_test2", wann: "wann_test2 mit ein bisschen mehr text zum testen... und einem laaaaaaaaaaaaaaaaaaaaaaaaaaaaaannnnnnnnnnnnnnnnggggggggggggggeeeemmmmmmm Wort", typ: CHECKLISTE_TYP_DATUM, position: 2}
-  ]) 
   
   schichts.each do |s|
     zeitBeginn = Time.parse(s.uhrzeit_beginn)

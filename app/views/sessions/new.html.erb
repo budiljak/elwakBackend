@@ -37,7 +37,9 @@ function refresh_objekts_list() {
 
       <p>
       <%= f.label :login %><br />
-      <%= f.text_field :login, class: 'form-control' %>
+      <% login ||= cookies[:last_login] %>
+      <% puts login %>
+      <%= f.text_field :login, class: 'form-control', value: login %>
       </p>
 
       <p>
@@ -51,7 +53,7 @@ function refresh_objekts_list() {
       </p>
 
       <p class="centered">
-      <%= f.submit "Login", class: "btn btn-primary" %>
+      <%= f.submit "Login", class: "btn btn-primary big_button" %>
       </p>
     </div>
   <% end %>

@@ -68,9 +68,9 @@
   </table>
   <div class="actions">
     <% if readonly %>
-      <button onclick="close_checkliste()">Schließen</button>
+      <button type="button" onclick="close_checkliste()">Schließen</button>
     <% else %>
-      <button onclick="close_checkliste()">Abbrechen</button>
+      <button type="button" onclick="close_checkliste()">Abbrechen</button>
       <%= f.submit "Speichern" %>
     <% end %>
   </div>

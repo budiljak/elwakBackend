@@ -1,26 +1,38 @@
 <div id="main_parent">
   <div id="main_all_headers">
-    <div style="width:40em;float:right">
-      <p style="text-align:right; margin:-10px 0 3px 0;padding: 0"><%= link_to "Abmelden", logout_path, method: :delete %></p>
-      <table width="100%" id="main_session_info">
+    <div  id="main_session_info">
+      <div style="text-align:right; margin: 5px 0; padding: 0">
+      </div>
+      <table width="100%">
         <tr>
           <th>Wachmann</th>
-          <td style="width:16em">
+          <td style="width:15em">
             <div class="like_input"><%= current_user.nachname %></div>
           </td>
-          <td style="width:16em">
-            <div class="like_input"><%= current_objekt.bezeichner %></div>
+          <td style="text-align: right;">
+            <%= button_to "Abmelden", logout_path, method: :delete, confirm: 'Wollen Sie sich jetzt abmelden?' %>
           </td>
         </tr>
         <tr>
-          <th>Aktuelle Schicht</th>
+          <th>Objekt</th>
           <td>
-            <div id="current_schicht" class="like_input">&nbsp;</div>
+            <div class="like_input"><%= current_objekt.bezeichner %></div>
           </td>
-          <td>
-            <button type="button" id="btn_schicht">Schicht beginnen</button>
+          <td style="text-align: right;">
+            <%= button_tag "Aktualisieren", {title: 'Alle Daten aktualisieren', type: 'button', onclick: "refresh_all_lists()"} %>
           </td>
         </tr>
+        <% if current_user.typ != KUNDE %>
+          <tr>
+            <th>Aktuelle Schicht</th>
+            <td>
+              <div id="current_schicht" class="like_input">&nbsp;</div>
+            </td>
+            <td style="text-align: right;">
+              <button type="button" id="btn_schicht">Schicht beginnen</button>
+            </td>
+          </tr>
+        <% end %>
         <tr>
           <th></th>
           <td>
@@ -35,13 +47,13 @@
   <script>
   </script>
   <div id="main_tabs" style="clear:both">
+    <img id="newInfoIcon" src="/images/newInfo.gif" />
     <ul>
-      <li><a href="#tab_infos">Infos</a></li>
+      <li><a href="#tab_infos">Infobox</a></li>
       <li><a href="#tab_wachbuch">Wachbuch</a></li>
       <li><a href="#tab_dokumente">Dokumente</a></li>
     </ul>
     <div id="tab_infos">
-      <h1>Infos</h1>
       <div id="infos_list_container">
         <table id="infos_list">
           <thead>
@@ -56,23 +68,25 @@
         </table>
       </div>
       <div id="info_container"></div>
+      <br />
+      <button id="new_info_button" class="big_button" type="button" onclick="open_new_info()">Neue Nachricht verfassen</button>
     </div>
     <div id="tab_wachbuch">
       <h1>Wachbuch</h1>
       <table id="wachbuch_container">
         <tr>
           <td class="wachbuch_container_column">
-            <select id="list_schichts" size="18">
+            <select id="list_schichts" size="23">
             </select>
           </td>
           <td class="wachbuch_container_column">
             <h2>Rapporte</h2>
-            <select id="list_rapports" size="15">
+            <select id="list_rapports" size="20">
             </select>
           </td>
           <td class="wachbuch_container_column">
             <h2>Checklisten</h2>
-            <select id="list_checklistes" style="" size="15">
+            <select id="list_checklistes" size="20">
             </select>
           </td>
         </tr>
@@ -104,7 +118,35 @@
       </table>
     </div>
     <div id="tab_dokumente">
-      <h1>Dokumente</h1>
+      <div id="pdf-datei-art-selector">
+        <div class="toggle-btn-grp">
+          <div>
+            <%= radio_button_tag "pdf_datei_art", PDF_DATEI_ART_ARB_ANW_ALLG, (current_user.typ != KUNDE), {disabled: (current_user.typ == KUNDE)} %>
+            <%= label_tag "pdf_datei_art_" + PDF_DATEI_ART_ARB_ANW_ALLG, "Arbeitsanweisungen - Allgemein", class:"toggle-btn" %>
+          </div>
+          <div>
+            <%= radio_button_tag "pdf_datei_art", PDF_DATEI_ART_ARB_ANW_OBJ, checked: (current_user.typ == KUNDE) %>
+            <label onclick="" class="toggle-btn">Arbeitsanweisungen - Objekt</label>
+          </div>
+          <div>
+            <%= radio_button_tag "pdf_datei_art", PDF_DATEI_ART_SONST_OBJ %>
+            <label onclick="" class="toggle-btn">Sonstiges - Objekt</label>
+          </div>
+        </div>
+      </div>
+
+      <table id="pdf-dateis-layout-table"><tr>
+          <td id="pdf-dateis-list-container">
+
+            <select id="pdf_dateis_list" size="25">
+            </select>
+
+          </td>
+
+          <td id="pdf_datei_viewer_container">
+            Bitte wählen Sie ein Dokument!
+          </td>
+      </tr></table>
 
 
     </div>

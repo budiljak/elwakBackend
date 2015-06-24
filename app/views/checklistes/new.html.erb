@@ -2,7 +2,7 @@
 
 <%= select_tag "vorlage_id", options_for_select(@vorlages.collect{|v| [v.bezeichner, v.id]}), {size: '7', class: 'checklisten_vorlage_list'} %>
 <div class="actions">
-  <button onclick="close_choose_vorlage()">Abbrechen</button>
-  <button onclick="choose_vorlage($('#vorlage_id').val())">Neue Checkliste</button>
+  <button type="button" onclick="close_choose_vorlage()">Abbrechen</button>
+  <button type="button" onclick="choose_vorlage($('#vorlage_id').val())">Neue Checkliste</button>
 </div>
 

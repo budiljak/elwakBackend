@@ -14,6 +14,7 @@ ElwakBackend::Application.routes.draw do
   resources :checklistes
 
   resources :infos
+  get "infos/:id/mark_read" => "infos#mark_read", as: 'mark_info_read'
 
   resources :info_empfaengers
 
@@ -31,6 +32,7 @@ ElwakBackend::Application.routes.draw do
   delete "pdf_dateis/:art" => 'pdf_datei#loeschen'
   get "pdf_dateis/" => 'pdf_datei#index'
   get "pdf_dateis/:id" => 'pdf_datei#download'
+  get "pdf_dateis/:id/show(.:format)" => 'pdf_datei#show', as: 'pdf_datei'
 
   get    'login'   => 'sessions#new'
   get    'update_objekts'   => 'sessions#update_objekts'

@@ -13,18 +13,23 @@
     <% end %>
     <div class="field">
       <%= f.label :datum %><br>
-      <%= f.text_field :datum, value: @schicht.datum.strftime(FORMAT_SCHICHT_DATUM)  %>
+      <%= f.text_field :datum, {value: @schicht.datum.strftime(FORMAT_SCHICHT_DATUM), class: 'date_input'}  %>
     </div>
     <div class="field">
       <%= f.label :uhrzeit_beginn %><br>
-      <%= f.text_field :uhrzeit_beginn %>
+      <%= f.text_field :uhrzeit_beginn, {class: 'time_input'} %>
     </div>
     <div class="field">
       <%= f.label :uhrzeit_ende %><br>
-      <%= f.text_field :uhrzeit_ende %>
+      <%= f.text_field :uhrzeit_ende, {class: 'time_input'} %>
     </div>
     <div class="actions">
-      <button onclick="close_new_schicht()">Abbrechen</button><%= f.submit "Beginnen" %>
+      <button type="button" onclick="close_new_schicht()">Abbrechen</button><%= f.submit "Beginnen" %>
     </div>
   <% end %>
 </div>
+<script type="text/javascript">
+<!--
+  init_new_schicht_dialog();
+-->
+</script>

@@ -26,9 +26,9 @@
   </div>
   <div class="actions">
     <% if readonly %>
-      <button onclick="close_kontrollanruf()">Schließen</button>
+      <button type="button" onclick="close_kontrollanruf()">Schließen</button>
     <% else %>
-      <button onclick="close_kontrollanruf()">Abbrechen</button>
+      <button type="button" onclick="close_kontrollanruf()">Abbrechen</button>
       <%= f.submit "Speichern" %>
     <% end %>
   </div>

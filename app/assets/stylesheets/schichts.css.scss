@@ -19,6 +19,11 @@
   height:100%;
 }
 
+#list_schichts .current-schicht {
+  color: red;
+  font-weight: bold !important;
+}
+
 .details_dialog {
   padding: 30px;
   margin: 0;
@@ -38,5 +43,5 @@
 }
 
 .actions {
-  margin-top: 1em;
+  margin: 1em 0;
 }

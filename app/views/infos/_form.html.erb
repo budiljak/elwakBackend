@@ -1,7 +1,8 @@
-<%= form_for(@info) do |f| %>
+<div class="details_dialog">
+<%= form_for(@info, remote: true) do |f| %>
   <% if @info.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@info.errors.count, "error") %> prohibited this info from being saved:</h2>
+      <h2>Es gab <%= @info.errors.count %> Fehler beim Speichern:</h2>
 
       <ul>
       <% @info.errors.full_messages.each do |msg| %>
@@ -11,31 +12,75 @@
     </div>
   <% end %>
 
+  <table id="new_info_recipients">
+    <thead>
+      <tr>
+        <th>Benutzer:</th>
+        <th>Objekte:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <select id="recipient_benutzers" name="benutzers[]" size="10" multiple="multiple">
+            <% Benutzer.where(inaktiv: false).each do |b| %>
+              <option value="<%= b.id %>"><%= b.nachname_vorname %></option>
+            <% end %>
+          </select>
+        </td>
+        <td>
+          <select id="recipient_objekts" name="objekts[]" size="10" multiple="multiple">
+            <% Objekt.where(inaktiv: false).each do |o| %>
+              <option value="<%= o.id %>"><%= o.bezeichner %></option>
+            <% end %>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div id="new_info_art" class="field">
+    <%= f.radio_button :art, INFO_ART_NORMAL %>
+    <%= f.label 'art_' + INFO_ART_NORMAL.to_s, "Normal", {class: 'info_art_text_color_' + INFO_ART_NORMAL.to_s} %>
+    <%= f.radio_button :art, INFO_ART_PERSOENLICH %>
+    <%= f.label 'art_' + INFO_ART_PERSOENLICH.to_s, "Persönlich", {class: 'info_art_text_color_' + INFO_ART_PERSOENLICH.to_s} %>
+    <%= f.radio_button :art, INFO_ART_OBJEKT %>
+    <%= f.label 'art_' + INFO_ART_OBJEKT.to_s, "Objekt", {class: 'info_art_text_color_' + INFO_ART_OBJEKT.to_s} %>
+    <%= f.radio_button :art, INFO_ART_NEUES_DOKUMENT %>
+    <%= f.label 'art_' + INFO_ART_NEUES_DOKUMENT.to_s, "Neues Dokument", {class: 'info_art_text_color_' + INFO_ART_NEUES_DOKUMENT.to_s} %>
+    <%= f.radio_button :art, INFO_ART_WICHTIG %>
+    <%= f.label 'art_' + INFO_ART_WICHTIG.to_s, "Wichtig", {class: 'info_art_text_color_' + INFO_ART_WICHTIG.to_s} %>
+  </div>
+  <% if current_user.typ != KUNDE %>
+    <%= content_tag :div, class:"field" do %>
+      <div class="fill_remaining_header">
+        <%= button_tag "Dokument wählen...", {type: :button, onclick: "open_choose_document('#{pdf_dateis_path}')"} %>
+      </div>
+      <div class="fill_remaining_content">
+        <%= text_field_tag :datei_name, "", readonly: true %>
+      </div>
+      <%= f.hidden_field :datei %>
+    <% end %>
+  <% end %>
   <div class="field">
-    <%= f.label :benutzer_id %><br>
-    <%= f.text_field :benutzer_id %>
+    <div class="fill_remaining_header">
+      <%= f.label :betreff, 'Betreff:' %>
+    </div>
+    <div class="fill_remaining_content">
+      <%= f.text_field :betreff %>
+    </div>
   </div>
   <div class="field">
-    <%= f.label :art %><br>
-    <%= f.number_field :art %>
-  </div>
-  <div class="field">
-    <%= f.label :datum %><br>
-    <%= f.datetime_select :datum %>
-  </div>
-  <div class="field">
-    <%= f.label :betreff %><br>
-    <%= f.text_field :betreff %>
-  </div>
-  <div class="field">
-    <%= f.label :text %><br>
-    <%= f.text_area :text %>
-  </div>
-  <div class="field">
-    <%= f.label :datei %><br>
-    <%= f.text_field :datei %>
+    <%= f.text_area :text, {id: 'new_info_text'} %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <button type="button" onclick="close_new_info()">Abbrechen</button>
+    <%= f.submit "Senden" %>
   </div>
 <% end %>
+</div>
+<script type="text/javascript">
+<!--
+  init_new_info_dialog();
+-->
+</script>
+

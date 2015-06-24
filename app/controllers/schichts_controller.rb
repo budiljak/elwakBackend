@@ -23,8 +23,8 @@ class SchichtsController < ApplicationController
 
   def new
     @schicht = Schicht.new
-    n = DateTime.now
-    @schicht.datum = DateTime.new(n.year, n.month, n.day)
+    @schicht.datum = Time.zone.today
+    n = Time.zone.now
     @schicht.uhrzeit_beginn = n.strftime('%H') + ":00"
     @schicht.uhrzeit_ende = (n + 8.hours).strftime('%H') + ":00"
     render partial: 'form'
@@ -35,6 +35,8 @@ class SchichtsController < ApplicationController
   def create
     if request.format.js?
       @schicht = Schicht.new(schicht_params)
+      # Transform date to utc (compatibility with offline version)
+      @schicht.datum = DateTime.new(@schicht.datum.year, @schicht.datum.month, @schicht.datum.day)
       @schicht.benutzer = current_user
       @schicht.objekt = current_objekt
       @schicht.wachbuch_eintrag = WachbuchEintrag.create

@@ -1,0 +1,7 @@
+<div class="details_dialog">
+  <%= select_tag "choose_document_list", grouped_options_for_select(@pdfs), {prompt: "(kein Dokument)", size: "11"} %>
+  <div class="actions">
+    <button type="button" onclick="close_choose_document()">Abbrechen</button>
+    <button type="button" onclick="apply_document()">Ok</button>
+  </div>
+</div>

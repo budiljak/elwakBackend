@@ -2,10 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
 #infos_list_container {
   float: left;
   width: 45%;
-  height: 350px;
+  height: 520px;
   border: 1px solid lightgray;
   overflow-y: scroll;
   overflow-x: auto;
@@ -50,7 +51,7 @@
 }
 
 .info_art_text_color_0 {
-  color: white;
+  color: black;
 }
 
 .info_art_text_color_1 {
@@ -113,3 +114,37 @@
   margin: 5px 1px 3px 1px;
 }
 
+#new_info_button {
+  float: right;
+  clear: right;
+  margin-right: 5%;
+  margin-top: 9.5em;
+  padding: 3px 2em;
+}
+
+#new_info_recipients {
+  width: 100%;
+  td {
+    width: 50%;
+  }
+}
+
+#new_info_art {
+  border: 1px solid gray;
+  padding: 1em;
+  margin: 1em;
+  vertical-align: center;
+  input {
+    position: relative;
+    top: 2px;
+    height: 14px;
+    width: 14px;
+  }
+  label {
+    padding-right: 1.5em;
+  }
+}
+
+#new_info_text {
+  height: 11em;
+}

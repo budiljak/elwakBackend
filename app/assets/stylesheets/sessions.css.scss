@@ -11,14 +11,14 @@
 }
 
 .login_box {
-  height: 400px;
+  height: 450px;
   width: 400px;
   padding: 20px;
 
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -220px 0 0 -220px;
+  margin: -245px 0 0 -245px;
 
   background-color: white;
   border: 1px solid black;
@@ -26,6 +26,11 @@
 
 .login_box input[type=text], .login_box input[type=password], .login_box select  {
   width: 100%;
+}
+
+.login_box input[type=submit]  {
+  padding: 1px 1em;
+  margin: 0.7em;
 }
 
 .centered {

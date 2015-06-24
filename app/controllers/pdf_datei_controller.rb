@@ -1,27 +1,31 @@
 class PdfDateiController < ApplicationController
+  include SessionsHelper
   protect_from_forgery :except => [:upload]
 
   def index
-    ts_bis = DateTime.parse(params[:ts_bis])
-    if params.has_key?(:objekt_id)
-      objekt_id = params[:objekt_id].to_i
+    if request.format.json?
+      prepare_pdfs_json
+    elsif request.format.html?
+      prepare_pdfs_html
     else
-      objekt_id = nil
+      prepare_pdfs_xml
     end
-    if params.has_key?(:ts_von)
-      ts_von = DateTime.parse(params[:ts_von])
-    else
-      n = DateTime.now
-      ts_von = DateTime.new(n.year - 1, n.month, n.day)
-    end
-    @pdfs = PdfDatei.where(:objekt_id=>objekt_id).where("updated_at > ? and updated_at <= ?", ts_von, ts_bis)
-    proc = Proc.new{|options, record| options[:builder].tag!('ts', record.updated_at.iso8601(9)) }
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml {render :xml => @pdfs, :except => [:updated_at, :created_at], :dasherize => false, root: "pdf_dateis", :procs => [proc]}
+      format.xml {
+        proc = Proc.new{|options, record| options[:builder].tag!('ts', record.updated_at.iso8601(9)) }
+        render :xml => @pdfs, :except => [:updated_at, :created_at], :dasherize => false, root: "pdf_dateis", :procs => [proc]
+      }
+      format.json
+      format.html {render layout: false}
     end
   end
   
+  def show
+    pdf = PdfDatei.find(params[:id])
+    
+    send_file pdf.datei.path, :type=>"application/pdf", :disposition=>'inline'
+  end
+
   def download
     pdf = PdfDatei.find(params[:id])
     
@@ -51,6 +55,62 @@ class PdfDateiController < ApplicationController
     
 
   private
+    def prepare_pdfs_html
+      arb_anw_allg = PdfDatei.where(art: PDF_DATEI_ART_ARB_ANW_ALLG).order(:name)
+      arb_anw_obj = PdfDatei.where(art: PDF_DATEI_ART_ARB_ANW_OBJ).where(objekt_id: current_objekt.id).order(:name)
+      sonst_obj = PdfDatei.where(art: PDF_DATEI_ART_SONST_OBJ).where(objekt_id: current_objekt.id).order(:name)
+
+      @pdfs = []
+      if arb_anw_allg.length > 0
+        @pdfs.push(['Arbeitsanweisungen - Allgemein', arb_anw_allg.map{|p| [p.name, make_windows_path(p)]}])
+      end
+      if arb_anw_obj.length > 0
+        @pdfs.push(['Arbeitsanweisungen - Objekt', arb_anw_obj.map{|p| [p.name, make_windows_path(p)]}])
+      end
+      if sonst_obj.length > 0
+        @pdfs.push(['Sonstiges - Objekt', sonst_obj.map{|p| [p.name, make_windows_path(p)]}])
+      end
+      puts @pdfs
+    end
+
+    def make_windows_path(pdf)
+      if pdf.art.to_s == PDF_DATEI_ART_ARB_ANW_ALLG
+        return "AllgemeineArbeitsanweisungen\\" + pdf.name
+      else
+        prefix = "Objekt" + pdf.objekt_id.to_s + "\\"
+        if pdf.art.to_s == PDF_DATEI_ART_ARB_ANW_OBJ
+          return prefix +  "Arbeitsanweisungen\\" + pdf.name
+        else
+          return prefix +  "Sonstiges\\" + pdf.name
+        end
+      end
+    end
+    
+    def prepare_pdfs_json
+      art = params[:art]
+      if art == PDF_DATEI_ART_ARB_ANW_ALLG
+        @pdfs = PdfDatei.where(art: art).order(:name)
+      else
+        @pdfs = PdfDatei.where(art: art).where(objekt_id: current_objekt.id).order(:name)
+      end
+    end
+
+    def prepare_pdfs_xml
+      ts_bis = DateTime.parse(params[:ts_bis])
+      if params.has_key?(:objekt_id)
+        objekt_id = params[:objekt_id].to_i
+      else
+        objekt_id = nil
+      end
+      if params.has_key?(:ts_von)
+        ts_von = DateTime.parse(params[:ts_von])
+      else
+        n = DateTime.now
+        ts_von = DateTime.new(n.year - 1, n.month, n.day)
+      end
+      @pdfs = PdfDatei.where(:objekt_id=>objekt_id).where("updated_at > ? and updated_at <= ?", ts_von, ts_bis)
+    end
+
     def pdf_datei_params
       params.permit(:objekt_id, :art, :name, :datei)
     end

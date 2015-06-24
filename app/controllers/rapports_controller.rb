@@ -54,9 +54,6 @@ class RapportsController < ApplicationController
   private
     def prepare_rapports_json
       @rapports = Rapport.where(:schicht_id => params[:schicht_id])
-      puts current_schicht
-      puts current_schicht.id.to_s
-      puts params[:schicht_id] == current_schicht.id.to_s
       if current_schicht && params[:schicht_id] == current_schicht.id.to_s
         @rapports.unshift(Rapport.new)
       end
