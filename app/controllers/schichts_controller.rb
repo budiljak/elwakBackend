@@ -53,7 +53,10 @@ class SchichtsController < ApplicationController
   end
 
   def finish
-    if current_schicht.update(beendet: true)
+    wb = current_schicht.wachbuch_eintrag
+    if wb.ausruestung_vollzaehlig.nil? or wb.ausruestung_funktion.nil? or wb.schluessel_vollzaehlig.nil?
+      render action: 'finish_incomplete'
+    elsif current_schicht.update(beendet: true)
       render action: 'save_success'
     else
       render action: 'save_error'

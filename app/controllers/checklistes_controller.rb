@@ -14,6 +14,7 @@ class ChecklistesController < ApplicationController
   def new
     if (params[:vorlage_id])
       @checkliste = Checkliste.new
+      @checkliste.position = (Checkliste.where(schicht_id: current_schicht.id).maximum(:position) || 0) + 1
       @checkliste.schicht = current_schicht
       cv = ChecklistenVorlage.find(params[:vorlage_id])
       @checkliste.checklisten_vorlage = cv
@@ -78,7 +79,7 @@ class ChecklistesController < ApplicationController
     end
 
     def checkliste_params
-      params.require(:checkliste).permit(:uhrzeit, checklisten_werts_attributes: [:id, :checklisten_eintrag_id, :inhalt])
+      params.require(:checkliste).permit(:uhrzeit, :position, checklisten_werts_attributes: [:id, :checklisten_eintrag_id, :inhalt])
     end
 
 end

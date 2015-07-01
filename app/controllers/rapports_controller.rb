@@ -13,6 +13,7 @@ class RapportsController < ApplicationController
 
   def new
     @rapport = Rapport.new
+    @rapport.position = (Rapport.where(schicht_id: current_schicht.id).maximum(:position) || 0) + 1
     @rapport.schicht = current_schicht
     @rapport.uhrzeit = DateTime.now.strftime(FORMAT_UHRZEIT)
     render partial: "form"
@@ -65,7 +66,7 @@ class RapportsController < ApplicationController
     end
 
     def rapport_params
-      params.require(:rapport).permit(:schicht_id, :beschreibung, :ort, :uhrzeit, :massnahmen)
+      params.require(:rapport).permit(:schicht_id, :position, :beschreibung, :ort, :uhrzeit, :massnahmen)
     end
 
 end

@@ -307,8 +307,8 @@ function refresh_schichts_list() {
       });
       if (!selectedId && schichtsList.children().length != 0) {
         schichtsList[0].selectedIndex = 0;
-        schicht_selected();
       }
+      schicht_selected();
     }
 
   })

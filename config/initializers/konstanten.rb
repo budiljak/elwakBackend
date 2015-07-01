@@ -1,4 +1,4 @@
-VERSION = "0.9"
+VERSION = "0.95"
 
 # Benutzer-Typen
 VERWALTER = 1

@@ -73,12 +73,12 @@ while tag < DateTime.now do
       {schicht: s, beschreibung: 'beschr2', ort:'ort2', uhrzeit: (zeitBeginn + 4.hours).strftime("%H:%M"), massnahmen: 'massn2', position: 2}, 
       {schicht: s, beschreibung: 'beschr3', ort:'ort3', uhrzeit: (zeitBeginn + 6.hours).strftime("%H:%M"), massnahmen: 'massn3', position: 3}
     ])
-    wb = WachbuchEintrag.create({schicht: s, besonderheiten: 'bes', schaeden: 'schä', schluessel_bemerkung: 'schlüBem'})
+    wb = WachbuchEintrag.create({schicht: s, besonderheiten: 'bes', schaeden: 'schä', ausruestung_vollzaehlig: true, ausruestung_funktion: false, schluessel_vollzaehlig: true, schluessel_bemerkung: 'schlüBem'})
     Kontrollanruf.create({wachbuch_eintrag: wb, uhrzeit: (zeitBeginn + 2.hours).strftime("%H:%M"), bemerkung: 'bem', objekt: 'obj'})
     Kontrollgang.create({wachbuch_eintrag: wb, uhrzeit: (zeitBeginn + 4.hours).strftime("%H:%M"), bemerkung: 'bem'})
     checklistes = Checkliste.create([
-      {schicht: s, checklisten_vorlage: checklisten_vorlages[0], uhrzeit: (zeitBeginn + 3.hours).strftime("%H:%M")},
-      {schicht: s, checklisten_vorlage: checklisten_vorlages[1], uhrzeit: (zeitBeginn + 3.hours).strftime("%H:%M")}
+      {schicht: s, checklisten_vorlage: checklisten_vorlages[0], uhrzeit: (zeitBeginn + 3.hours).strftime("%H:%M"), position: 1},
+      {schicht: s, checklisten_vorlage: checklisten_vorlages[1], uhrzeit: (zeitBeginn + 5.hours).strftime("%H:%M"), position: 2}
     ])
     ChecklistenWert.create([
       {checkliste: checklistes[0], checklisten_eintrag: checklistes[0].checklisten_vorlage.checklisten_eintrags[0], inhalt: CHECKLISTE_WERT_JA},
