@@ -31,6 +31,9 @@
     <%= f.label :massnahmen, "Massnahmen: " %><br>
     <%= f.text_area :massnahmen, rows: 5, readonly: readonly %>
   </div>
+  <div style="float: left;" class="actions">
+    <%= button_tag "Drucken", {type: "button", onclick: "print_rapports('#{@rapport.id.to_s}')", disabled: !readonly} %>
+  </div>
   <div class="actions">
     <% if readonly %>
       <button type="button" onclick="close_rapport()">Schließen</button>

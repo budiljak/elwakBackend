@@ -12,6 +12,7 @@ ElwakBackend::Application.routes.draw do
   resources :wachbuch_eintrags
   resources :kontrollanrufs
   resources :kontrollgangs
+  get "rapports/print(.:format)" => "rapports#print", as: 'print_rapports'
   resources :rapports
   resources :checklistes
 

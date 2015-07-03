@@ -52,6 +52,26 @@ class RapportsController < ApplicationController
     end
   end
 
+  def print
+    if params[:schicht_id]
+      s = Schicht.find(params[:schicht_id])
+      @rapporte = s.rapports
+    elsif params[:rapport_id]
+      @rapporte = [Rapport.find(params[:rapport_id])]
+    end
+
+    respond_to do |format|
+      format.js
+      format.pdf do
+        pdf = RapportePdf.new(@rapporte)
+        filename = (@rapporte.length > 1)?"rapporte.pdf":"rapport.pdf"
+        send_data pdf.render, filename: filename, type: 'application/pdf'
+      end
+    end
+  end
+    
+      
+
   private
     def prepare_rapports_json
       @rapports = Rapport.where(:schicht_id => params[:schicht_id])

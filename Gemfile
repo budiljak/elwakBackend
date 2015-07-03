@@ -39,6 +39,9 @@ gem 'carrierwave'
 
 gem 'nokogiri'
 
+gem 'prawn'
+gem 'prawn-table'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

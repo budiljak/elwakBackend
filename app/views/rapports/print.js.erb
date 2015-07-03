@@ -1,0 +1,12 @@
+<% if @rapporte.length > 0 %>
+  var url;
+  <% if @rapporte.length == 1 %>
+    url = '<%= print_rapports_path(format: :pdf, rapport_id: @rapporte[0].id.to_s) %>';
+  <% else %>
+    url = '<%= print_rapports_path(format: :pdf, schicht_id: @rapporte[0].schicht_id.to_s) %>';
+  <% end %>
+  window.location.href = url;
+<% else %>
+  alert("Es gibt keine Rapporte in dieser Schicht!");
+<% end %>
+

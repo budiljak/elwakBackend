@@ -501,6 +501,25 @@ function close_rapport() {
   $("#rapport_dialog").dialog("destroy");
 }
 
+function print_rapports(rapport_id) {
+  if (!rapport_id) {
+    var schicht_id = $( "#list_schichts").val();
+    if (!schicht_id || schicht_id < 1) {
+      alert("Bitte erst eine Schicht wählen!");
+      return;
+    }
+    url = '/rapports/print.js?schicht_id=' + schicht_id
+  } else {
+    url = '/rapports/print.js?rapport_id=' + rapport_id
+  }
+
+  $.ajax({
+    type: "GET", 
+    url: url,
+    dataType: "script"
+  });
+}
+
 function delete_rapport() {
   var selected = $("#list_rapports option:selected");
   if (!selected.length) {
