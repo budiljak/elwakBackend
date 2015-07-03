@@ -1,3 +1,33 @@
 // Place all the styles related to the Benutzers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#benutzer_change_password {
+  border: 1px solid black;
+  margin: 1em;
+  padding: 1em;
+  width: 20em;
+  height: 5em;
+  position: relative;
+  .frame_header {
+    top: -.5em;
+    background-color: white;
+    display: inline-block;
+    position: absolute;
+    padding: 0 .5em;
+    * {
+      margin: 0;
+      position: relative;
+      font-weight: normal;
+    }
+  }
+  button {
+    height:40px; 
+    width:200px; 
+    margin: -20px -100px; 
+    position:absolute;
+    top:50%; 
+    left:50%;
+  }
+}
+

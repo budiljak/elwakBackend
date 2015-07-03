@@ -43,6 +43,8 @@ class InfoEmpfaengersController < ApplicationController
       id: iNode.xpath('id').text.to_s,
       gelesen: iNode.xpath('gelesen').text.to_s.to_bool
     }
+    puts 'doc: ' + doc
+    puts 'update_params: ' + update_params.to_s
     @infoEmpfaenger = InfoEmpfaenger.find(params[:id])
 
     respond_to do |format|

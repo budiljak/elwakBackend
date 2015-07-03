@@ -69,6 +69,23 @@ function init_main() {
   init_dokument_typ_selector();
   refresh_all_lists();
   initIdleTimer();
+  get_after_login_actions();
+}
+
+function get_after_login_actions() {
+  $.ajax({
+    type: "GET",
+    url: '/main/after_login.js', 
+    dataType: "script"
+  });
+}
+
+function get_before_logout_actions() {
+  $.ajax({
+    type: "GET",
+    url: '/main/before_logout.js', 
+    dataType: "script"
+  });
 }
 
 function initIdleTimer() {
@@ -154,6 +171,10 @@ function refreshNewInfoIcon(infoId, isRead) {
       icon.css('display', 'inline')
     }
   }
+}
+
+function showInfobox() {
+  $( "#main_tabs" ).tabs( "option", "active", 0 );
 }
 
 function showInfo(path, unread) {
@@ -607,6 +628,28 @@ function delete_checkliste() {
     url: url,
     dataType: "script"
   });
+}
+
+function open_change_password() {
+  $(" <div id=\"change_password_dialog\" />").dialog({
+    title: 'Passwort ändern',
+    closeText: 'Schließen',
+    autoOpen: true, 
+    modal: true,
+    resizable: false,
+    width: 300,
+    height: 350,
+  open: function() {
+    $("#change_password_dialog").load('/benutzers/change_password_dialog.html');
+  }, 
+  close: function( event, ui ) {
+    close_change_password();
+  }
+  });
+}
+
+function close_change_password() {
+  $("#change_password_dialog").dialog("destroy");
 }
 
 function init_ja_nein_frames() {

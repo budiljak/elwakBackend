@@ -1,6 +1,8 @@
 ElwakBackend::Application.routes.draw do
   get "sessions/new"
   get "main/index"
+  get "main/after_login"
+  get "main/before_logout"
   resources :checklisten_vorlages
 
   get "finish_schicht(.:format)" => "schichts#finish"
@@ -20,6 +22,8 @@ ElwakBackend::Application.routes.draw do
 
   resources :objekts
 
+  get "benutzers/change_password_dialog" => "benutzers#change_password_dialog"
+  post "benutzers/change_password" => "benutzers#change_password", as: 'change_password'
   resources :benutzers
   
   get "sync/allgemein" => 'sync#allgemein'

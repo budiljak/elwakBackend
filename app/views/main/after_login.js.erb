@@ -1,0 +1,6 @@
+<% if current_user.login == current_user.passwort %>
+  open_change_password();
+<% elsif !current_schicht and current_user.typ == MITARBEITER %>
+  start_new_schicht();
+<% end %>
+

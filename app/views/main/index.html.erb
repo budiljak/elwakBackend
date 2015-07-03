@@ -10,7 +10,7 @@
             <div class="like_input"><%= current_user.nachname %></div>
           </td>
           <td style="text-align: right;">
-            <%= button_to "Abmelden", logout_path, method: :delete, confirm: 'Wollen Sie sich jetzt abmelden?' %>
+            <%= button_tag "Abmelden", {type: :button, onclick: 'get_before_logout_actions()'} %>
           </td>
         </tr>
         <tr>
@@ -47,11 +47,12 @@
   <script>
   </script>
   <div id="main_tabs" style="clear:both">
-    <img id="newInfoIcon" src="/images/newInfo.gif" />
+    <img id="newInfoIcon" src="/images/newInfo.gif" onclick="showInfobox()" />
     <ul>
       <li><a href="#tab_infos">Infobox</a></li>
       <li><a href="#tab_wachbuch">Wachbuch</a></li>
       <li><a href="#tab_dokumente">Dokumente</a></li>
+      <li><a href="#tab_benutzer">Benutzerverw.</a></li>
     </ul>
     <div id="tab_infos">
       <div id="infos_list_container">
@@ -125,7 +126,7 @@
             <%= label_tag "pdf_datei_art_" + PDF_DATEI_ART_ARB_ANW_ALLG, "Arbeitsanweisungen - Allgemein", class:"toggle-btn" %>
           </div>
           <div>
-            <%= radio_button_tag "pdf_datei_art", PDF_DATEI_ART_ARB_ANW_OBJ, checked: (current_user.typ == KUNDE) %>
+            <%= radio_button_tag "pdf_datei_art", PDF_DATEI_ART_ARB_ANW_OBJ, (current_user.typ == KUNDE) %>
             <label onclick="" class="toggle-btn">Arbeitsanweisungen - Objekt</label>
           </div>
           <div>
@@ -149,6 +150,14 @@
       </tr></table>
 
 
+    </div>
+    <div id="tab_benutzer">
+      <div id="benutzer_change_password">
+        <div class="frame_header">
+          <h3>Eigenes Passwort ändern</h3>
+        </div>
+        <%= button_tag "Passwort ändern", {title: 'Eigenes Passwort ändern', type: :button, onclick: 'open_change_password()', class: 'big_button'} %>
+      </div>
     </div>
   </div>
 </div>

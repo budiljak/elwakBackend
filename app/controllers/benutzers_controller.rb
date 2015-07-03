@@ -1,4 +1,5 @@
 class BenutzersController < ApplicationController
+  include SessionsHelper
   protect_from_forgery :except => [:create, :update, :destroy]
   respond_to :xml
 
@@ -56,6 +57,41 @@ class BenutzersController < ApplicationController
       success(nil)
     else
       error(@benutzer.errors)
+    end
+  end
+
+  def change_password_dialog
+    render action: :change_password_dialog, layout: false
+  end
+  
+  def change_password
+    old_pass = params[:old_password]
+    new_pass = params[:new_password]
+    repeat_pass = params[:repeat_password]
+    if !current_user.authenticate(old_pass)
+      ok = false
+      @message = "Das bisherige Passwort wurde nicht richtig eingegeben!"
+    elsif new_pass != repeat_pass
+      ok = false
+      @message = "Neues Passwort und Wiederholung stimmen nicht überein!"
+    elsif !new_pass or new_pass == ''
+      ok = false
+      @message = "Neues Passwort darf nicht leer sein!"
+    else
+      ok = current_user.update(passwort: new_pass)
+      if !ok
+        @message = "Fehler beim Speichern des neuen Passworts!"
+      end
+    end
+      
+    respond_to do |format|
+      format.js {
+        if ok
+          render 'change_password_success'
+        else
+          render 'change_password_error'
+        end
+      }
     end
   end
 

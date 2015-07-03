@@ -1,0 +1,14 @@
+var message;
+<% if !current_schicht %>
+  message = "Wollen Sie sich jetzt abmelden?"
+<% else %>
+  message = "Die aktuelle Schicht wurde noch nicht beendet. \n\nWollen Sie sich jetzt abmelden OHNE die Schicht zu beenden?"
+<% end %>
+
+if (confirm(message)) {
+  $.ajax({
+    url: '<%= logout_path(format: :js) %>',
+    type: "DELETE"
+  });
+}
+  

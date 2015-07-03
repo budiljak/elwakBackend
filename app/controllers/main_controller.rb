@@ -7,6 +7,18 @@ class MainController < ApplicationController
     @infos = Info.joins(:info_empfaengers).where("info_empfaengers.benutzer_id = ?", current_user)
   end
 
+  def after_login
+    respond_to do |format|
+      format.js
+    end
+  end
+  
+  def before_logout
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
   
     def logged_in_user

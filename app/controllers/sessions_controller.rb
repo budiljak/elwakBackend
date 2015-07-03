@@ -45,6 +45,9 @@ class SessionsController < ApplicationController
 
   def destroy
     log_out
-    redirect_to login_path
+    respond_to do |format|
+      format.html {redirect_to login_path}
+      format.js {render js: "window.location.href = '#{login_path}'"}
+    end
   end
 end
