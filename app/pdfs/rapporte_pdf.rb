@@ -9,7 +9,7 @@ class RapportePdf < Prawn::Document
       make_header("Rapport")
     end
     schicht_header
-    move_down 25
+    move_down 35
     make_rapports
   end
   
