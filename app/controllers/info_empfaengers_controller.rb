@@ -37,18 +37,16 @@ class InfoEmpfaengersController < ApplicationController
 
   
   def update
-    doc = Nokogiri::XML(request.body.read)
-    iNode = doc.xpath('elwak/info_empfaenger')
-    update_params = {
-      id: iNode.xpath('id').text.to_s,
-      gelesen: iNode.xpath('gelesen').text.to_s.to_bool
-    }
-    puts 'doc: ' + doc
-    puts 'update_params: ' + update_params.to_s
+    #doc = Nokogiri::XML(request.body.read)
+    #iNode = doc.xpath('elwak/info_empfaenger')
+    #update_params = {
+      #id: iNode.xpath('id').text.to_s,
+      #gelesen: iNode.xpath('gelesen').text.to_s.to_bool
+    #}
     @infoEmpfaenger = InfoEmpfaenger.find(params[:id])
 
     respond_to do |format|
-      if @infoEmpfaenger.update(update_params)
+      if @infoEmpfaenger.update(gelesen: true)
         format.xml {render :xml => '<?xml version="1.0" encoding="UTF-8"?><success />'}
       else
         format.xml {render :xml => '<?xml version="1.0" encoding="UTF-8"?><error />'}
