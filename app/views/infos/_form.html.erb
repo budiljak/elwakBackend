@@ -23,14 +23,14 @@
       <tr>
         <td>
           <select id="recipient_benutzers" name="benutzers[]" size="10" multiple="multiple">
-            <% Benutzer.where(inaktiv: false).each do |b| %>
+            <% Benutzer.where(inaktiv: false).order(:nachname).each do |b| %>
               <option value="<%= b.id %>"><%= b.nachname_vorname %></option>
             <% end %>
           </select>
         </td>
         <td>
           <select id="recipient_objekts" name="objekts[]" size="10" multiple="multiple">
-            <% Objekt.where(inaktiv: false).each do |o| %>
+            <% Objekt.where(inaktiv: false).order(:bezeichner).each do |o| %>
               <option value="<%= o.id %>"><%= o.bezeichner %></option>
             <% end %>
           </select>

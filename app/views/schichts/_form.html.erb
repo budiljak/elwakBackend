@@ -12,15 +12,15 @@
       </div>
     <% end %>
     <div class="field">
-      <%= f.label :datum %><br>
+      <%= f.label :datum, "Datum: " %><br>
       <%= f.text_field :datum, {value: @schicht.datum.strftime(FORMAT_SCHICHT_DATUM), class: 'date_input'}  %>
     </div>
     <div class="field">
-      <%= f.label :uhrzeit_beginn %><br>
+      <%= f.label :uhrzeit_beginn, "Uhrzeit Beginn: " %><br>
       <%= f.text_field :uhrzeit_beginn, {class: 'time_input'} %>
     </div>
     <div class="field">
-      <%= f.label :uhrzeit_ende %><br>
+      <%= f.label :uhrzeit_ende, "Uhrzeit Ende: " %><br>
       <%= f.text_field :uhrzeit_ende, {class: 'time_input'} %>
     </div>
     <div class="actions">
