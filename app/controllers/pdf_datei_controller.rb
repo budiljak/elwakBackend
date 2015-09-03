@@ -44,8 +44,12 @@ class PdfDateiController < ApplicationController
   def loeschen
     doc = Nokogiri::XML(request.body.read)
     pdNode = doc.xpath('elwak/pdf_datei')
-    pdf = PdfDatei.new(pdf_datei_params)
-    pdf.name = pdNode.xpath('name').text.to_s
+    params = pdf_datei_params
+    params[:name] = pdNode.xpath('name').text.to_s
+    PdfDatei.where(params).each do |p|
+      p.destroy
+    end
+    pdf = PdfDatei.new(params)
     pdf.geloescht = true
     pdf.save
     respond_to do |format|
