@@ -1,4 +1,10 @@
-VERSION = "1.0.1"
+VERSION = "1.0.2"
+
+# Version 1.0.2 (3.9.15)
+# - BUGFIX: Beschraenkung auf 1 Jahr nur fuer Infos und Schichten
+# 
+# Version 1.0.1 (3.9.15)
+# - BUGFIX: Geloeschte PDFs wurden in DB verdoppelt
 
 # Benutzer-Typen
 VERWALTER = 1
