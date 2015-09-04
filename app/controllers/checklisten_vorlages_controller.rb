@@ -12,11 +12,10 @@ class ChecklistenVorlagesController < ApplicationController
     end
     if params.has_key?(:ts_von)
       ts_von = DateTime.parse(params[:ts_von])
+      @checklisten_vorlages = ChecklistenVorlage.where(:objekt_id => objekt_id).where("updated_at > ? and updated_at <= ?", ts_von, ts_bis)
     else
-      n = DateTime.now
-      ts_von = DateTime.new(n.year - 1, n.month, n.day)
+      @checklisten_vorlages = ChecklistenVorlage.where(:objekt_id => objekt_id).where("updated_at <= ?", ts_bis)
     end
-    @checklisten_vorlages = ChecklistenVorlage.where(:objekt_id => objekt_id).where("updated_at > ? and updated_at <= ?", ts_von, ts_bis)
     proc = Proc.new{|options, record| options[:builder].tag!('ts', record.updated_at.iso8601(9)) }
     respond_to do |format|
       format.html # index.html.erb
