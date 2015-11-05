@@ -23,8 +23,6 @@ class PdfDateiController < ApplicationController
   
   def show
     pdf = PdfDatei.find(params[:id])
-    puts (not pdf.objekt == nil)
-    puts (not pdf.objekt == current_objekt)
     if (not pdf.objekt == nil) and (not pdf.objekt == current_objekt)
       redirect_to login_url
       return
