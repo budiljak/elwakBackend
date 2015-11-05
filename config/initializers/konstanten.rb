@@ -1,5 +1,7 @@
-VERSION = "1.0.2"
+VERSION = "1.0.3"
 
+# Version 1.0.3 (05.11.15)
+# - BUGFIX: Nur Dokumente des aktuellen Objekts anzeigen
 # Version 1.0.2 (3.9.15)
 # - BUGFIX: Beschraenkung auf 1 Jahr nur fuer Infos und Schichten
 # 
