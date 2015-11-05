@@ -1,6 +1,7 @@
 class PdfDateiController < ApplicationController
   include SessionsHelper
   protect_from_forgery :except => [:upload]
+  before_filter :logged_in_user, :only => [:show]
 
   def index
     if request.format.json?
@@ -22,6 +23,12 @@ class PdfDateiController < ApplicationController
   
   def show
     pdf = PdfDatei.find(params[:id])
+    puts (not pdf.objekt == nil)
+    puts (not pdf.objekt == current_objekt)
+    if (not pdf.objekt == nil) and (not pdf.objekt == current_objekt)
+      redirect_to login_url
+      return
+    end
     
     send_file pdf.datei.path, :type=>"application/pdf", :disposition=>'inline'
   end
@@ -118,4 +125,9 @@ class PdfDateiController < ApplicationController
       params.permit(:objekt_id, :art, :name, :datei)
     end
   
+    def logged_in_user
+      unless logged_in?
+        redirect_to login_url
+      end
+    end
 end
