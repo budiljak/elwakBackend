@@ -6,14 +6,16 @@ class InfoEmpfaengersController < ApplicationController
     else
       benutzer_id = nil
     end
+    ts_max_alter = DateTime.new(n.year - 1, n.month, n.day)
     if params.has_key?(:ts_von)
       ts_von = DateTime.parse(params[:ts_von])
     else
       n = DateTime.now
-      ts_von = DateTime.new(n.year - 1, n.month, n.day)
+      ts_von = ts_max_alter
     end
-    ieEmpfangen = InfoEmpfaenger.where("benutzer_id=?", benutzer_id).where("updated_at > ? and updated_at <= ?", ts_von, ts_bis)
-    ieGesendet = InfoEmpfaenger.joins(:info).where("infos.benutzer_id = ?", benutzer_id.to_i).where("info_empfaengers.updated_at > ? and info_empfaengers.updated_at <= ?", ts_von, ts_bis)
+    ieEmpfangen = InfoEmpfaenger.joins(:info).where("info_empfaengers.benutzer_id=?", benutzer_id).where("info_empfaengers.updated_at > ? and info_empfaengers.updated_at <= ?", ts_von, ts_bis).where("infos.updated_at > ?", ts_max_alter)
+    ieGesendet = InfoEmpfaenger.joins(:info).where("infos.benutzer_id = ?", benutzer_id.to_i).where("info_empfaengers.updated_at > ? and info_empfaengers.updated_at <= ?", ts_von, ts_bis).where("infos.updated_at > ?", ts_max_alter)
+
     ids = []
     @info_empfaengers = []
     ieEmpfangen.each do |ie|
