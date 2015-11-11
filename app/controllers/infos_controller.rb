@@ -46,7 +46,7 @@ class InfosController < ApplicationController
         params[:objekts].each do |o_id|
           o = Objekt.find(o_id.to_i, include: :benutzers)
           o.benutzers.each do |b|
-            if !b_ids.include?(b.id)
+            if !b_ids.include?(b.id) and !b.inaktiv
               b_ids << b.id
             end
           end
