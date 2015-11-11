@@ -6,11 +6,11 @@ class InfoEmpfaengersController < ApplicationController
     else
       benutzer_id = nil
     end
+    n = DateTime.now
     ts_max_alter = DateTime.new(n.year - 1, n.month, n.day)
     if params.has_key?(:ts_von)
       ts_von = DateTime.parse(params[:ts_von])
     else
-      n = DateTime.now
       ts_von = ts_max_alter
     end
     ieEmpfangen = InfoEmpfaenger.joins(:info).where("info_empfaengers.benutzer_id=?", benutzer_id).where("info_empfaengers.updated_at > ? and info_empfaengers.updated_at <= ?", ts_von, ts_bis).where("infos.updated_at > ?", ts_max_alter)
