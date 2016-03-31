@@ -112,14 +112,27 @@ class SchichtsController < ApplicationController
     end
   
     def parseSchicht(sNode)
-      s = Schicht.new({
+      s_props = {
         objekt_id: sNode.xpath('objekt_id').text.to_s, 
         benutzer_id: sNode.xpath('benutzer_id').text.to_s, 
         datum: sNode.xpath('datum').text.to_s, 
         uhrzeit_beginn: sNode.xpath('uhrzeit_beginn').text.to_s, 
         uhrzeit_ende: sNode.xpath('uhrzeit_ende').text.to_s,
         beendet: true
-      })
+      }
+      if sNode.xpath('server_id').length > 0 then
+        s = Schicht.find(sNode.xpath('server_id')[0].text.to_s)
+        s.wachbuch_eintrag.destroy
+        for r in s.rapports do
+          r.destroy
+        end
+        for c in s.checklistes do
+          c.destroy
+        end
+        s.update(s_props)
+      else
+        s = Schicht.new(s_props)
+      end
       sNode.xpath('rapports/rapport').each do |rNode|
         r = Rapport.new({
           schicht: s,
