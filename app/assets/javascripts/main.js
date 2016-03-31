@@ -270,7 +270,7 @@ function close_new_schicht() {
 }
 
 function finish_schicht() {
-  if (!confirm("Wollen Sie die laufende Schicht beenden?")) {
+  if (!confirm("Wollen Sie die laufende Schicht beenden?\n\nHinweise:\n+ Wachbucheintrag muss vollständig ausgefüllt sein.\n+ Ein Rapport muss angelegt sein.\n+ Eine Checkliste muss angelegt sein.\n+ Dieser Vorgang kann nicht rückgängig gemacht werden!")) {
     return;
   }
   $.ajax({
