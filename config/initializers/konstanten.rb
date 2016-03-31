@@ -1,5 +1,8 @@
-VERSION = "1.0.3"
+VERSION = "1.0.4"
 
+# Version 1.0.4 (31.03.16)
+# - Vor Beenden der Schicht müssen ein Rapport und eine Checkliste angelegt sein
+# - Schichten können nachträglich verändert werden (nur offline)
 # Version 1.0.3 (05.11.15)
 # - BUGFIX: Nur Dokumente des aktuellen Objekts anzeigen
 # Version 1.0.2 (3.9.15)
