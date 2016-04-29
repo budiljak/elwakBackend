@@ -1,5 +1,7 @@
-VERSION = "1.0.4"
+VERSION = "1.0.5"
 
+# Version 1.0.5 (29.04.16)
+# - BUGFIX: Es können keine neuen Schichten übertragen werden (Server-ID wird nicht als leer erkannt)
 # Version 1.0.4 (31.03.16)
 # - Vor Beenden der Schicht müssen ein Rapport und eine Checkliste angelegt sein
 # - Schichten können nachträglich verändert werden (nur offline)
