@@ -120,7 +120,8 @@ class SchichtsController < ApplicationController
         uhrzeit_ende: sNode.xpath('uhrzeit_ende').text.to_s,
         beendet: true
       }
-      if sNode.xpath('server_id').length > 0 then
+      puts sNode.xpath('server_id').text
+      if sNode.xpath('server_id').text.length > 0 then
         s = Schicht.find(sNode.xpath('server_id')[0].text.to_s)
         s.wachbuch_eintrag.destroy
         for r in s.rapports do
