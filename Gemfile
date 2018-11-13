@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.1'
+gem 'rails', '4.2.8'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -49,7 +49,7 @@ gem 'prawn-table'
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-gem 'capistrano', group: :development
+gem 'capistrano', '~> 3.4.0', group: :development
 gem 'capistrano-bundler', group: :development
 gem 'capistrano-rails', group: :development
 gem 'capistrano-rbenv', github: "capistrano/rbenv", group: :development
