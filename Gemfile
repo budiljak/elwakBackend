@@ -6,7 +6,9 @@ gem 'rails', '4.2.8'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
-gem 'mysql2'
+# mysql2 funktioniert nur in dieser Version mit Rails 4.2.x - es gibt aber einen 
+# anderen Workaround. Oder man nimmt PSQL oder Rails >= 5.1
+gem 'mysql2', '~> 0.3.18'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
