@@ -1,5 +1,7 @@
-VERSION = "1.0.5"
+VERSION = "1.0.6"
 
+# Version 1.0.6 (15.11.18)
+# - Einige Updates für Umzug auf Ubuntu 16
 # Version 1.0.5 (29.04.16)
 # - BUGFIX: Es können keine neuen Schichten übertragen werden (Server-ID wird nicht als leer erkannt)
 # Version 1.0.4 (31.03.16)
