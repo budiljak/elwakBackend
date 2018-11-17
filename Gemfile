@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.8'
+gem 'rails', '~> 4.0.1'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'sqlite3', group: :development
 
 # mysql2 funktioniert nur in dieser Version mit Rails 4.2.x - es gibt aber einen 
 # anderen Workaround. Oder man nimmt PSQL oder Rails >= 5.1
