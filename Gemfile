@@ -8,7 +8,7 @@ gem 'sqlite3', group: :development
 
 # mysql2 funktioniert nur in dieser Version mit Rails 4.2.x - es gibt aber einen 
 # anderen Workaround. Oder man nimmt PSQL oder Rails >= 5.1
-gem 'mysql2', '~> 0.3.18'
+gem 'mysql2', '~> 0.5.6'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

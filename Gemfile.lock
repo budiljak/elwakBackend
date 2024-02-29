@@ -79,7 +79,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (4.7.5)
     multi_json (1.13.1)
-    mysql2 (0.3.21)
+    mysql2 (0.5.6)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (5.0.2)
@@ -154,7 +154,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails (~> 3.1.0)
   jquery-ui-rails (~> 5.0.3)
-  mysql2 (~> 0.3.18)
+  mysql2 (~> 0.5.6)
   nokogiri
   prawn
   prawn-table
@@ -166,4 +166,4 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
 
 BUNDLED WITH
-   1.17.1
+   1.17.3
