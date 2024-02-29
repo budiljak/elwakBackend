@@ -134,8 +134,7 @@ class InfosController < ApplicationController
     end
 
     def prepare_infos_json
-      n = DateTime.now
-      ts_von = DateTime.new(n.year - 1, n.month, n.day)
+      ts_von = DateTime.now - 1.year
       @infos = Info.eager_load(:info_empfaengers).includes(:benutzer).where("info_empfaengers.benutzer_id = ?", current_user.id).where("infos.updated_at > ?", ts_von).order(datum_uhrzeit: :desc)
     end
       
