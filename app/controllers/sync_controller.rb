@@ -59,8 +59,7 @@ class SyncController < ApplicationController
     if params.has_key?(:ts_von)
       ts_von = DateTime.parse(params[:ts_von])
     else
-      n = DateTime.now
-      ts_von = DateTime.new(n.year - 1, n.month, n.day)
+      ts_von = DateTime.now - 1.year
     end
     infos_empfangen = Info.joins(:info_empfaengers).where("info_empfaengers.benutzer_id = ?", benutzer_id.to_i).where("infos.updated_at > ?", ts_von)
     infos_gesendet = Info.where("benutzer_id = ?", benutzer_id.to_i).where("infos.updated_at > ?", ts_von)
@@ -117,8 +116,7 @@ class SyncController < ApplicationController
     else
       checklisten_vorlages = ChecklistenVorlage.where(:objekt_id => objekt_id)
       pdf_dateis = PdfDatei.where(:objekt_id => objekt_id)
-      n = DateTime.now
-      ts_von = DateTime.new(n.year - 1, n.month, n.day)
+      ts_von = DateTime.now - 1.year
     end
     schichts = Schicht.where(:objekt_id => objekt_id).where("updated_at > ?", ts_von).where(beendet: true)
     if checklisten_vorlages.count > 0

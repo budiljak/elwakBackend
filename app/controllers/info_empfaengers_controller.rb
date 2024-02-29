@@ -6,8 +6,7 @@ class InfoEmpfaengersController < ApplicationController
     else
       benutzer_id = nil
     end
-    n = DateTime.now
-    ts_max_alter = DateTime.new(n.year - 1, n.month, n.day)
+    ts_max_alter = DateTime.now - 1.year
     if params.has_key?(:ts_von)
       ts_von = DateTime.parse(params[:ts_von])
     else

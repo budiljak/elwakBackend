@@ -99,15 +99,13 @@ class SchichtsController < ApplicationController
       if params.has_key?(:ts_von)
         ts_von = DateTime.parse(params[:ts_von])
       else
-        n = DateTime.now
-        ts_von = DateTime.new(n.year - 1, n.month, n.day)
+        ts_von = DateTime.now - 1.year
       end
       @schichts = Schicht.where(:objekt_id => objekt_id).where("updated_at > ? and updated_at <= ?", ts_von, ts_bis).where(beendet: true)
     end
 
     def prepare_schichts_json
-        n = DateTime.now
-        ts_von = DateTime.new(n.year - 1, n.month, n.day)
+        ts_von = DateTime.now - 1.year
         @schichts = Schicht.includes(:benutzer).eager_load("wachbuch_eintrag").where(:objekt_id => current_objekt.id).where("schichts.updated_at > ?", ts_von).where("beendet = ? or benutzer_id=?",true, current_user.id).order(datum: :desc, uhrzeit_beginn: :desc)
     end
   
