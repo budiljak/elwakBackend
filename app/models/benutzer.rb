@@ -1,6 +1,7 @@
 class Benutzer < ActiveRecord::Base
   has_many :objekt_zuordnungs
   has_many :objekts, through: :objekt_zuordnungs
+  has_many :infos, dependent: :destroy
 
   
   def setze_objekt_zuordnungen(objekt_ids)

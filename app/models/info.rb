@@ -1,7 +1,7 @@
 class Info < ActiveRecord::Base
   belongs_to :benutzer
 
-  has_many :info_empfaengers
+  has_many :info_empfaengers, dependent: :destroy
   has_many :benutzers, through: :info_empfaengers
 
   def has_datei?
