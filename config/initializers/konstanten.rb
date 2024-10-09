@@ -1,4 +1,4 @@
-VERSION = "1.0.6"
+VERSION = "1.0.7"
 
 # Version 1.0.6 (15.11.18)
 # - Einige Updates für Umzug auf Ubuntu 16
