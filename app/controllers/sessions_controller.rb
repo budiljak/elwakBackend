@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
   def create
     login = params[:session][:login]
     objekt_id = params[:session][:objekt_id]
-    user = Benutzer.find_by(login: login.downcase)
+    user = Benutzer.find_by(login: login.downcase, inaktiv: false)
     if user && user.authenticate(params[:session][:passwort])
       if !objekt_id || objekt_id == "-1"
         flash.now[:danger] = 'Bitte ein Objekt auswählen!'
