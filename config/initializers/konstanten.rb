@@ -1,5 +1,10 @@
-VERSION = "1.0.7"
+VERSION = "1.0.8"
 
+# Version 1.0.8 (09.10.24)
+# - removed bin from linked_dirs to make 'rails console' work on pruduction / test
+# - add 'has_many :infos' to benutzer
+# - downgrade mysql2 to 0.3.21 (doesn't work with Rails 4.0.x)
+# - fix 'rails console' after downgrading mysql2 gem
 # Version 1.0.6 (15.11.18)
 # - Einige Updates für Umzug auf Ubuntu 16
 # Version 1.0.5 (29.04.16)
