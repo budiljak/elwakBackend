@@ -1,5 +1,7 @@
-VERSION = "1.0.8"
+VERSION = "1.0.9"
 
+# Version 1.0.9 (noch nicht 09.10.24)
+# - Only login users that are not 'inaktiv'
 # Version 1.0.8 (09.10.24)
 # - removed bin from linked_dirs to make 'rails console' work on pruduction / test
 # - add 'has_many :infos' to benutzer
