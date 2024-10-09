@@ -6,10 +6,12 @@ gem 'rails', '~> 4.0.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', group: :development
 
-# mysql2 funktioniert nur in dieser Version mit Rails 4.2.x - es gibt aber einen 
-# anderen Workaround. Oder man nimmt PSQL oder Rails >= 5.1
-#gem 'mysql2', '~> 0.5.6'
-gem 'mysql2', '~> 0.3.21'
+group :production, :test do
+  # Neuere Versionen (ab 0.4.x) funktionieren nicht mit Rails 4.0
+  # (bundle install --without production test)
+  # siehe auch initializers/mysql2_adapter.rb
+  gem 'mysql2', '~> 0.3.21'
+end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
